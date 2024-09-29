@@ -53,6 +53,12 @@ public class AcpProject {
                                     Output.output("Product Added Successfully");
                                     break;
                                 case 2:
+                                    name = Input.Input("Enter Product name: ");
+                                    price = Double.parseDouble(Input.Input("Enter Product Price: "));
+                                    quantity = Integer.parseInt(Input.Input("Enter Product Quantity: "));
+                                    prod.setName(name);
+                                    prod.setPrice(price);
+                                    prod.setQty(quantity);
                                     inventory.updateProduct(prod);
                                     break;
                                 case 3:

@@ -4,6 +4,7 @@
  */
 package acpproject;
 
+import Display.Output;
 import java.util.ArrayList;
 
 /**
@@ -22,13 +23,21 @@ public class InventoryImpl implements Inventory{
 
     @Override
     public void updateProduct(Products prod) {
+        boolean isFound = false;
         for(int i=0;i<prods.size();i++){
             Products product = new Products();
             if(product.getName().equals(prod.getName())){
                 product.setPrice(prod.getPrice());
                 product.setQty(prod.getQty());
+                isFound = true;
                 break;
             }
+        }
+        if(!isFound){
+            Output.output("Product Updated");
+        }
+        else{
+            Output.output("Product Not Found");
         }
     }
 
