@@ -4,82 +4,131 @@
  * and open the template in the editor.
  */
 package acpproject;
-
-import java.util.Scanner;
+import Display.*;
 
 /**
  *
  * @author Dell
  */
 public class AcpProject {
-
-    public static void sort(Inventory inventory,Scanner cin){
-        int choice=0;
-        System.out.println("1. Sort by name");
-        System.out.println("2. Sort by Price");
-        choice=cin.nextInt();
-        
-        switch(choice){
-            case 1:
-                inventory.sortByName();
-                break;
-                
-            case 2:
-                inventory.sortByPrice();
-                break;
-                
-            default:
-                System.out.println("Invalid Input");
-                break;
-        }
-        
-    }
-    
+   
     public static void main(String[] args) {
-        Inventory inventory=new Inventory();
-        int choice=0;
-        Scanner cin=new Scanner(System.in);
+        Inventory inventory = new InventoryImpl();
+        Products prod = new Products();
+        Account account = new AccountImp();
+        int id = 0;
+        boolean exit = false;
         
-        while(true){
-            System.out.println("1. Add new Product");
-            System.out.println("2. Update Qty of Product");
-            System.out.println("3. Display all Products");
-            System.out.println("4. Calculate Total Inventory Cost");
-            System.out.println("5. Sort Inventory");
-            System.out.println("6. Display Low Stock Items");
-            System.out.print("Choose an option: ");
-            choice=cin.nextInt();
-            
-            switch(choice){
+        while (!exit) {
+            String message =  "1) Login Account\n"
+                            + "2) Exit";
+            int choice = Integer.parseInt(Input.Input(message));
+            System.out.println(choice);
+            switch (choice) {
                 case 1:
-                    inventory.addItem();
+                    String email = Input.Input("Enter Email:");
+                    String password = Input.Input("Enter Password:");
+                    boolean isAdmin = account.login(email, password);
+                    
+                    if (isAdmin) {
+                        do {
+                            message = "1. Add new Product\n"
+                                    + "2. Update Qty of Product\n"
+                                    + "3. Display all Products\n"
+                                    + "4. Calculate Total Inventory Cost\n"
+                                    + "5. Sort Inventory\n"
+                                    + "6. Sort by Price\n"
+                                    + "7) Exit";
+                            choice = Integer.parseInt(Input.Input(message));
+                            
+                            switch (choice) {
+                                case 1:
+                                    String name = Input.Input("Enter Product name: ");
+                                    double price = Double.parseDouble(Input.Input("Enter Product Price: "));
+                                    int quantity = Integer.parseInt(Input.Input("Enter Product Quantity: "));
+                                    prod.setName(name);
+                                    prod.setPrice(price);
+                                    prod.setQty(quantity);
+                                    inventory.addProduct(prod);
+                                    Output.output("Product Added Successfully");
+                                    break;
+                                case 2:
+                                    inventory.updateProduct(prod);
+                                    break;
+                                case 3:
+                                    StringBuilder inventoryDetails = inventory.viewInventory();
+                                    if (inventoryDetails == null || inventoryDetails.length() == 0) {
+                                        Output.output("No products in inventory.");
+                                    } else {
+                                        Output.output(inventoryDetails.toString());
+                                    }
+                                    break;
+                                case 4:
+                                    int totalPrice = inventory.productPrice();
+                                    Output.output("Total Price: " + totalPrice);
+                                    break;
+                                case 5:
+                                    do {
+                                        message = "1) Ascending Order\n"
+                                                + "2) Descending Order\n"
+                                                + "3) Exit";
+                                        choice = Integer.parseInt(Input.Input(message));
+                                        switch (choice) {
+                                            case 1:
+                                                inventory.sortByName(true, false);
+                                                break;
+                                            case 2:
+                                                inventory.sortByName(false, true);
+                                                break;
+                                            case 3:
+                                                break;
+                                            default:
+                                                System.out.println("Invalid Input");
+                                                break;
+                                        }
+                                    } while (choice != 3); 
+                                    break;
+                                case 6:
+                                    do {
+                                        message = "1) Ascending Order\n"
+                                                + "2) Descending Order\n"
+                                                + "3) Exit";
+                                        choice = Integer.parseInt(Input.Input(message));
+                                        switch (choice) {
+                                            case 1:
+                                                inventory.sortByPrice(true, false);
+                                                break;
+                                            case 2:
+                                                inventory.sortByPrice(false, true);
+                                                break;
+                                            case 3:
+                                                break; 
+                                            default:
+                                                System.out.println("Invalid Input");
+                                                break;
+                                        }
+                                    } while (choice != 3);
+                                    break;
+                                case 7:
+                                    exit = true;
+                                    break;
+                                default:
+                                    System.out.println("Invalid Input");
+                                    break;
+                            }
+                        } while (!exit);
+                    } else {
+                        Output.output("Login Failed, Account Not Found");
+                    }
                     break;
                 case 2:
-                    inventory.updateQty();
+                    exit = true;
                     break;
-                    
-                case 3:
-                    inventory.viewInventory();
+                default:
+                    System.out.println("Invalid Input");
                     break;
-                    
-                case 4:
-                    inventory.inventoryCost();
-                    break;
-                    
-                case 5:
-                    sort(inventory,cin);
-                    break;
-                    
-                case 6:
-                    inventory.lowStock();
-                    break;
-                    
-                    default:
-                        System.out.println("Invalid Input");
-                        break;
-                    
             }
-        }
+        }           
     }
-    
 }
+
