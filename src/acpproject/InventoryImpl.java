@@ -4,6 +4,7 @@
  */
 package acpproject;
 
+import Display.Input;
 import Display.Output;
 import java.util.ArrayList;
 
@@ -13,31 +14,44 @@ import java.util.ArrayList;
  */
 public class InventoryImpl implements Inventory{
     public ArrayList<Products> prods = new ArrayList<>();
-
-    public InventoryImpl() {}
-
-    @Override
-    public void addProduct(Products prod) {
-        prods.add(prod);
+    private Products productActions;
+    public InventoryImpl() {
+        productActions=new Products();
     }
 
     @Override
-    public void updateProduct(Products prod) {
-        boolean isFound = false;
+    public void addProduct() {
+        String name = Input.Input("Enter Product name: ");
+        int price = productActions.getPositiveValue("Price");
+        int quantity = productActions.getPositiveValue("Qty");
+        Products newProduct=new Products(name,price,quantity,price*quantity);
+        prods.add(newProduct);
+        Output.output("Product Added Successfully");
+        
+    }
+
+    @Override
+    public void updateProduct() {
+        
+        String name = Input.Input("Enter Product name to Search in Inventory: ");
+        
+        
+        boolean notFound = false;
         for(int i=0;i<prods.size();i++){
-            Products product = new Products();
-            if(product.getName().equals(prod.getName())){
-                product.setPrice(prod.getPrice());
-                product.setQty(prod.getQty());
-                isFound = true;
+            Products product = prods.get(i);
+            if(name.equals(product.getName())){
+                product.setPrice(productActions.getPositiveValue("Price"));
+                product.setQty(productActions.getPositiveValue("Qty"));
+                product.setTotalCost(product.getPrice()*product.getQty());
+                notFound = true;
                 break;
             }
         }
-        if(!isFound){
+        if(notFound){
             Output.output("Product Updated");
         }
         else{
-            Output.output("Product Not Found");
+            Output.errorMsg("Product Not Found");
         }
     }
 

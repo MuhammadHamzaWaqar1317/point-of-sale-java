@@ -43,23 +43,10 @@ public class AcpProject {
                             
                             switch (choice) {
                                 case 1:
-                                    String name = Input.Input("Enter Product name: ");
-                                    double price = Double.parseDouble(Input.Input("Enter Product Price: "));
-                                    int quantity = Integer.parseInt(Input.Input("Enter Product Quantity: "));
-                                    prod.setName(name);
-                                    prod.setPrice(price);
-                                    prod.setQty(quantity);
-                                    inventory.addProduct(prod);
-                                    Output.output("Product Added Successfully");
+                                    inventory.addProduct();
                                     break;
                                 case 2:
-                                    name = Input.Input("Enter Product name: ");
-                                    price = Double.parseDouble(Input.Input("Enter Product Price: "));
-                                    quantity = Integer.parseInt(Input.Input("Enter Product Quantity: "));
-                                    prod.setName(name);
-                                    prod.setPrice(price);
-                                    prod.setQty(quantity);
-                                    inventory.updateProduct(prod);
+                                    inventory.updateProduct();
                                     break;
                                 case 3:
                                     StringBuilder inventoryDetails = inventory.viewInventory();

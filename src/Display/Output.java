@@ -14,4 +14,8 @@ public class Output {
     public static void output(String message){
         JOptionPane.showMessageDialog(null, message);
     }
+    
+    public static void errorMsg(String message){
+        JOptionPane.showMessageDialog(null,message,"Error",JOptionPane.ERROR_MESSAGE);
+    }
 }

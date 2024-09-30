@@ -15,7 +15,7 @@ import java.util.Scanner;
  */
 public class Products {
     private String name;
-    private double price;
+    private int price;
     private int qty;
     private double totalCost;
     Scanner cin=new Scanner(System.in);
@@ -30,12 +30,19 @@ public class Products {
         qty=obj.qty;
         totalCost=obj.totalCost;
     }
+
+    Products(String name, int price, int qty, double totalCost) {
+        this.name = name;
+        this.price = price;
+        this.qty = qty;
+        this.totalCost = totalCost;
+    }
     
     public String getName() {
         return name;
     }
 
-    public double getPrice() {
+    public int getPrice() {
         return price;
     }
 
@@ -51,7 +58,7 @@ public class Products {
         this.name = name;
     }
 
-    public void setPrice(double price) {
+    public void setPrice(int price) {
         this.price = price;
     }
 
@@ -61,5 +68,24 @@ public class Products {
 
     public void setTotalCost(double totalCost) {
         this.totalCost = totalCost;
+    }
+    
+    ////////////////////////  METHODS
+    
+    public int getPositiveValue(String method){
+        while(true){
+            try {
+
+                    int value=Integer.parseInt(Input.Input("Enter Product "+method));
+                    if (value<=0) {
+                        Output.errorMsg("Please Enter a value Greater than 0");
+                        continue;
+                    }
+                    return value;
+
+            } catch (Exception e) {
+                Output.errorMsg("Please Enter an Integer Value");
+            }
+        }
     }
 }

@@ -13,8 +13,8 @@ import java.util.Scanner;
  * @author Dell
  */
 public interface Inventory {
-    public void addProduct(Products prod);
-    public void updateProduct(Products prod);
+    public void addProduct();
+    public void updateProduct();
     public int productPrice();
     public StringBuilder viewInventory();
     public ArrayList<Products> searchProduct(String name);
