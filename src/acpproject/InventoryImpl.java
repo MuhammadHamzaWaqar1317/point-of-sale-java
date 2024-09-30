@@ -145,7 +145,7 @@ public class InventoryImpl implements Inventory{
         int totalPrice = 0;
         for(int i=0;i<prods.size();i++){
             Products product = prods.get(i);
-            totalPrice += product.getPrice() + product.getQty();
+            totalPrice += product.getPrice() * product.getQty();
             
         }
         return totalPrice;
