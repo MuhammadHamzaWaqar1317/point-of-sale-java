@@ -49,16 +49,10 @@ public class AcpProject {
                                     inventory.updateProduct();
                                     break;
                                 case 3:
-                                    StringBuilder inventoryDetails = inventory.viewInventory();
-                                    if (inventoryDetails == null || inventoryDetails.length() == 0) {
-                                        Output.output("No products in inventory.");
-                                    } else {
-                                        Output.output(inventoryDetails.toString());
-                                    }
+                                    inventory.viewInventory();
                                     break;
                                 case 4:
-                                    int totalPrice = inventory.productPrice();
-                                    Output.output("Total Price: " + totalPrice);
+                                    inventory.productPrice();
                                     break;
                                 case 5:
                                     do {

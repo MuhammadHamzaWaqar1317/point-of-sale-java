@@ -15,8 +15,8 @@ import java.util.Scanner;
 public interface Inventory {
     public void addProduct();
     public void updateProduct();
-    public int productPrice();
-    public StringBuilder viewInventory();
+    public void productPrice();
+    public void viewInventory();
     public ArrayList<Products> searchProduct(String name);
     public void sortByName(boolean asce, boolean desce);
     public void sortByPrice(boolean asce, boolean desce);

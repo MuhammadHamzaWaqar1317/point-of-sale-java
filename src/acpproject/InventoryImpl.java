@@ -56,10 +56,11 @@ public class InventoryImpl implements Inventory{
     }
 
     @Override
-    public StringBuilder viewInventory() {
+    public void viewInventory() {
         StringBuilder sb = new StringBuilder();
         if (prods.isEmpty()) {
-            return sb;
+             Output.output("No products in inventory.");
+
         }
 
         for (Products product : prods) {
@@ -68,7 +69,8 @@ public class InventoryImpl implements Inventory{
               .append(", Quantity: ").append(product.getQty())
               .append("\n");
         }
-        return sb;
+        Output.output(sb.toString());
+
     }
 
     @Override
@@ -141,14 +143,15 @@ public class InventoryImpl implements Inventory{
     }
 
     @Override
-    public int productPrice() {
+    public void productPrice() {
         int totalPrice = 0;
         for(int i=0;i<prods.size();i++){
             Products product = prods.get(i);
             totalPrice += product.getPrice() * product.getQty();
             
         }
-        return totalPrice;
+        Output.output("Total Price: " + totalPrice);
+        
     }
     
     
