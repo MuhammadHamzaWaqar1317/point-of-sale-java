@@ -92,11 +92,11 @@ public class InventoryImpl implements Inventory{
                 int j=i-1;
 
                 while(j>=0 && prods.get(i).getName().compareTo(product.getName())>0){
-                    prods.set(j+1, prods.get(j));
+                            prods.set(j+1, prods.get(j));
                     j--;
-                }
+                        }
                 prods.set(j+1,product);
-            }
+                }
            
         }
         else if(asce == false && desce == true){
@@ -105,11 +105,11 @@ public class InventoryImpl implements Inventory{
                 int j=i-1;
 
                 while(j>=0 && prods.get(i).getName().compareTo(product.getName())<0){
-                    prods.set(j+1, prods.get(j));
+                            prods.set(j+1, prods.get(j));
                     j--;
-                }
+                        }
                 prods.set(j+1,product);
-            } 
+                }
         }
     }
 
@@ -156,3 +156,5 @@ public class InventoryImpl implements Inventory{
     
     
 }
+
+// abdulllah first commit and push
