@@ -65,12 +65,11 @@ public class InventoryImpl implements Inventory{
     public void viewInventory() {
         StringBuilder sb = new StringBuilder();
        int count=0;
-        String path="C:\\Abdullah\\university\\5\\ACP\\Project\\point-of-sale-java\\src\\sale1.txt";
+        String path="C:\\Abdullah\\university\\5\\ACP\\Project\\point-of-sale-java\\src\\sales.txt";
         ArrayList<String> example=new ArrayList<>();
         try (BufferedReader reader = new BufferedReader(new FileReader(path))) {
             String line;
             while ((line = reader.readLine()) != null){
-               Output.output(line);
                count++;
                example.add(line);    
             }
@@ -81,16 +80,17 @@ public class InventoryImpl implements Inventory{
                 String name = example.get(countpro);
                 int qty = Integer.parseInt(example.get(countpro + 1));
                 int price = Integer.parseInt(example.get(countpro + 2));
-                int total = Integer.parseInt(example.get(countpro + 3));
+                double total = Double.parseDouble(example.get(countpro + 3));
                 Products products = new Products(name,price,qty,total);
                 prods.add(products);
                 countpro += 4;
             }
             for(int i=0; i<prods.size();i++){
-                Products products = new Products();
-                sb.append("Name: ").append(products.getName())
-                .append(", Price: ").append(products.getPrice())
-                .append(", Quantity: ").append(products.getQty())
+                Products product = prods.get(i);
+                 sb.append("Name: ").append(product.getName())
+                .append(", Price: ").append(product.getPrice())
+                .append(", Quantity: ").append(product.getQty())
+                .append(", Total Price: ").append(product.getTotalCost())
                 .append("\n");
             }
             
