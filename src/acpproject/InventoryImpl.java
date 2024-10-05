@@ -92,25 +92,27 @@ public class InventoryImpl implements Inventory{
 
     @Override
     public void sortByName(boolean asce, boolean desce) {
-        if(asce == true && desce == false){
-           for(int i=0;i<prods.size();i++){
-                Products product = prods.get(i);
+        if(asce ){
+           for(int i=1;i<prods.size();i++){
+
+                Products product=prods.get(i);
                 int j=i-1;
 
-                while(j>=0 && prods.get(i).getName().compareTo(product.getName())>0){
-                            prods.set(j+1, prods.get(j));
+                while(j>=0 && prods.get(j).getName().compareTo(product.getName())>0){
+
+                    prods.set(j+1,prods.get(j));
                     j--;
                         }
                 prods.set(j+1,product);
                 }
            
         }
-        else if(asce == false && desce == true){
-            for(int i=0;i<prods.size();i++){
+        else if(desce ){
+            for(int i=1;i<prods.size();i++){
                 Products product = prods.get(i);
                 int j=i-1;
 
-                while(j>=0 && prods.get(i).getName().compareTo(product.getName())<0){
+                while(j>=0 && prods.get(j).getName().compareTo(product.getName())<0){
                             prods.set(j+1, prods.get(j));
                     j--;
                         }
