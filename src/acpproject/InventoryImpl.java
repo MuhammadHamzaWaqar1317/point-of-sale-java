@@ -19,6 +19,34 @@ public class InventoryImpl implements Inventory{
     private Products productActions;
     public InventoryImpl() {
         productActions=new Products();
+        
+        int count=0;
+        String path="E:\\Code Projects\\Netbeans JAVA Projects\\AcpProject\\src\\sales.txt";
+        ArrayList<String> example=new ArrayList<>();
+        try (BufferedReader reader = new BufferedReader(new FileReader(path))) {
+            String line;
+            while ((line = reader.readLine()) != null){
+               count++;
+               example.add(line);    
+            }
+             
+             int countpro=0;
+             for (int i = 0; i < count/4; i++)
+            {
+                String name = example.get(countpro);
+                int qty = Integer.parseInt(example.get(countpro + 1));
+                int price = Integer.parseInt(example.get(countpro + 2));
+                double total = Double.parseDouble(example.get(countpro + 3));
+                Products products = new Products(name,price,qty,total);
+                prods.add(products);
+                countpro += 4;
+            }
+             } catch (IOException e) {
+            Output.errorMsg("Error reading file: ");
+        }catch (NumberFormatException e) {
+            Output.errorMsg("Error parsing number: ");
+        }
+             
     }
 
     @Override
@@ -64,27 +92,27 @@ public class InventoryImpl implements Inventory{
     @Override
     public void viewInventory() {
         StringBuilder sb = new StringBuilder();
-       int count=0;
-        String path="C:\\Abdullah\\university\\5\\ACP\\Project\\point-of-sale-java\\src\\sales.txt";
-        ArrayList<String> example=new ArrayList<>();
-        try (BufferedReader reader = new BufferedReader(new FileReader(path))) {
-            String line;
-            while ((line = reader.readLine()) != null){
-               count++;
-               example.add(line);    
-            }
-             
-             int countpro=0;
-             for (int i = 0; i < count/4; i++)
-            {
-                String name = example.get(countpro);
-                int qty = Integer.parseInt(example.get(countpro + 1));
-                int price = Integer.parseInt(example.get(countpro + 2));
-                double total = Double.parseDouble(example.get(countpro + 3));
-                Products products = new Products(name,price,qty,total);
-                prods.add(products);
-                countpro += 4;
-            }
+//       int count=0;
+//        String path="E:\\Code Projects\\Netbeans JAVA Projects\\AcpProject\\src\\sales.txt";
+//        ArrayList<String> example=new ArrayList<>();
+//        try (BufferedReader reader = new BufferedReader(new FileReader(path))) {
+//            String line;
+//            while ((line = reader.readLine()) != null){
+//               count++;
+//               example.add(line);    
+//            }
+//             
+//             int countpro=0;
+//             for (int i = 0; i < count/4; i++)
+//            {
+//                String name = example.get(countpro);
+//                int qty = Integer.parseInt(example.get(countpro + 1));
+//                int price = Integer.parseInt(example.get(countpro + 2));
+//                double total = Double.parseDouble(example.get(countpro + 3));
+//                Products products = new Products(name,price,qty,total);
+//                prods.add(products);
+//                countpro += 4;
+//            }
             for(int i=0; i<prods.size();i++){
                 Products product = prods.get(i);
                  sb.append("Name: ").append(product.getName())
@@ -95,11 +123,11 @@ public class InventoryImpl implements Inventory{
             }
             
             Output.output(sb.toString());
-        } catch (IOException e) {
-            Output.errorMsg("Error reading file: ");
-        }catch (NumberFormatException e) {
-            Output.errorMsg("Error parsing number: ");
-        }
+//        } catch (IOException e) {
+//            Output.errorMsg("Error reading file: ");
+//        }catch (NumberFormatException e) {
+//            Output.errorMsg("Error parsing number: ");
+//        }
         
     }
    

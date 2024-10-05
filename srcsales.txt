@@ -1,0 +1,5 @@
+ name: sabun
+ quantity: 45
+ price: 23
+ cost: 1035.0
+ ----------------

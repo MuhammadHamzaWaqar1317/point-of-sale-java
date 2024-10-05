@@ -16,8 +16,8 @@ import java.util.ArrayList;
 public class Store {
     public void storeProd(String name,int quantity,int price,double cost,ArrayList<Products> list){
         File file,file1;
-         String path="C:\\Abdullah\\university\\5\\ACP\\Project\\point-of-sale-java\\src\\sale1.txt";
-         String path2="C:\\Abdullah\\university\\5\\ACP\\Project\\point-of-sale-java\\src\\sales.txt";
+         String path="E:\\Code Projects\\Netbeans JAVA Projects\\AcpProject\\src\\sale1.txt";
+         String path2="E:\\Code Projects\\Netbeans JAVA Projects\\AcpProject\\src\\sales.txt";
         file=new File(path);
         file1=new File(path2);
              
@@ -39,7 +39,7 @@ public class Store {
         for (int i = 0; i < list.size(); i++)
         {
             String content=" name: "+list.get(i).getName()+"\n quantity: "+list.get(i).getQty()+"\n price: "+list.get(i).getPrice()+"\n cost: "+list.get(i).getTotalCost()+"\n ----------------\n";
-            String content2=list.get(i).getName()+"\n"+list.get(i).getQty()+"\n"+list.get(i).getPrice()+"\n"+list.get(i).getTotalCost();
+            String content2=list.get(i).getName()+"\n"+list.get(i).getQty()+"\n"+list.get(i).getPrice()+"\n"+list.get(i).getTotalCost()+"\n";
             try (
             BufferedWriter writer1 = new BufferedWriter(new FileWriter(path,true));
             BufferedWriter writer2 = new BufferedWriter(new FileWriter(path2,true))
