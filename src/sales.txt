@@ -1,0 +1,5 @@
+ name: oil
+ quantity: 12
+ price: 230
+ cost: 2760.0
+ ----------------

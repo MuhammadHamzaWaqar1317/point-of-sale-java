@@ -4,6 +4,7 @@
  */
 package acpproject;
 
+import java.io.*;
 import Display.Input;
 import Display.Output;
 import java.util.ArrayList;
@@ -14,6 +15,7 @@ import java.util.ArrayList;
  */
 public class InventoryImpl implements Inventory{
     public ArrayList<Products> prods = new ArrayList<>();
+     Store store=new Store();
     private Products productActions;
     public InventoryImpl() {
         productActions=new Products();
@@ -26,6 +28,8 @@ public class InventoryImpl implements Inventory{
         int quantity = productActions.getPositiveValue("Qty");
         Products newProduct=new Products(name,price,quantity,price*quantity);
         prods.add(newProduct);
+       double cost=price*quantity;
+        store.storeProd(name,price,quantity,cost,prods);
         Output.output("Product Added Successfully");
         
     }
@@ -43,10 +47,12 @@ public class InventoryImpl implements Inventory{
                 product.setPrice(productActions.getPositiveValue("Price"));
                 product.setQty(productActions.getPositiveValue("Qty"));
                 product.setTotalCost(product.getPrice()*product.getQty());
+                store.storeProd(prods.get(i).getName(),prods.get(i).getQty(),prods.get(i).getPrice(),prods.get(i).getTotalCost(),prods);
                 notFound = true;
                 break;
             }
         }
+        
         if(notFound){
             Output.output("Product Updated");
         }
@@ -62,7 +68,42 @@ public class InventoryImpl implements Inventory{
              Output.output("No products in inventory.");
 
         }
-
+       int count=0;
+        String path="E:\\Abdullah uni 2022-2026\\5th Semester\\Advanced  Computer Programming\\ACP-Project\\point-of-sale-java\\src\\"+"sale1.txt";
+        ArrayList<String> example=new ArrayList<>();
+        try (BufferedReader reader = new BufferedReader(new FileReader(path))) {
+            String line;
+            while ((line = reader.readLine()) != null){
+               count++;
+               example.add(line);    
+            }
+            System.out.println(count);
+             
+             int countpro=0;
+             for (int i = 0; i < count/4; i++)
+            {
+                
+                 for (int j = countpro; j < countpro+4; j++){
+            
+                     prods.get(i).setName(example.get(j));
+                     //countpro++;
+                     int qty = Integer.parseInt(example.get(j+1));
+                     prods.get(i).setQty(qty);
+                     //countpro++;
+                     int price=Integer.parseInt(example.get(j+2));
+                     prods.get(i).setPrice(price);
+                     //countpro++;
+                     double total=Double.parseDouble(example.get(j+3));
+                     prods.get(i).setTotalCost(total);
+                     countpro=countpro+4;
+                     break;
+                 }
+            }
+        
+        } catch (IOException e) {
+            System.err.println("Error reading file: " + e.getMessage());
+        }
+        
         for (Products product : prods) {
             sb.append("Name: ").append(product.getName())
               .append(", Price: ").append(product.getPrice())
@@ -72,6 +113,7 @@ public class InventoryImpl implements Inventory{
         Output.output(sb.toString());
 
     }
+   
 
     @Override
     public ArrayList<Products> searchProduct(String name) {
