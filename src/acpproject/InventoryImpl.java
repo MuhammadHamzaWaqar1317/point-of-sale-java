@@ -18,34 +18,8 @@ public class InventoryImpl implements Inventory{
      Store store=new Store();
     private Products productActions;
     public InventoryImpl() {
-        productActions=new Products();
-        
-        int count=0;
-        String path="E:\\Code Projects\\Netbeans JAVA Projects\\AcpProject\\src\\sales.txt";
-        ArrayList<String> example=new ArrayList<>();
-        try (BufferedReader reader = new BufferedReader(new FileReader(path))) {
-            String line;
-            while ((line = reader.readLine()) != null){
-               count++;
-               example.add(line);    
-            }
-             
-             int countpro=0;
-             for (int i = 0; i < count/4; i++)
-            {
-                String name = example.get(countpro);
-                int qty = Integer.parseInt(example.get(countpro + 1));
-                int price = Integer.parseInt(example.get(countpro + 2));
-                double total = Double.parseDouble(example.get(countpro + 3));
-                Products products = new Products(name,price,qty,total);
-                prods.add(products);
-                countpro += 4;
-            }
-             } catch (IOException e) {
-            Output.errorMsg("Error reading file: ");
-        }catch (NumberFormatException e) {
-            Output.errorMsg("Error parsing number: ");
-        }
+       productActions=new Products();
+       store.addStart(prods);
              
     }
 
@@ -92,27 +66,6 @@ public class InventoryImpl implements Inventory{
     @Override
     public void viewInventory() {
         StringBuilder sb = new StringBuilder();
-//       int count=0;
-//        String path="E:\\Code Projects\\Netbeans JAVA Projects\\AcpProject\\src\\sales.txt";
-//        ArrayList<String> example=new ArrayList<>();
-//        try (BufferedReader reader = new BufferedReader(new FileReader(path))) {
-//            String line;
-//            while ((line = reader.readLine()) != null){
-//               count++;
-//               example.add(line);    
-//            }
-//             
-//             int countpro=0;
-//             for (int i = 0; i < count/4; i++)
-//            {
-//                String name = example.get(countpro);
-//                int qty = Integer.parseInt(example.get(countpro + 1));
-//                int price = Integer.parseInt(example.get(countpro + 2));
-//                double total = Double.parseDouble(example.get(countpro + 3));
-//                Products products = new Products(name,price,qty,total);
-//                prods.add(products);
-//                countpro += 4;
-//            }
             for(int i=0; i<prods.size();i++){
                 Products product = prods.get(i);
                  sb.append("Name: ").append(product.getName())
@@ -122,13 +75,7 @@ public class InventoryImpl implements Inventory{
                 .append("\n");
             }
             
-            Output.output(sb.toString());
-//        } catch (IOException e) {
-//            Output.errorMsg("Error reading file: ");
-//        }catch (NumberFormatException e) {
-//            Output.errorMsg("Error parsing number: ");
-//        }
-        
+            Output.output(sb.toString());        
     }
    
 
@@ -173,32 +120,90 @@ public class InventoryImpl implements Inventory{
     }
 
     @Override
-    public void sortByPrice(boolean asce, boolean desce) {
-        if(asce == true && desce == false){
-           for(int i=0;i<prods.size();i++){
-                Products product = prods.get(i);
-                int j=i-1;
-
-                while(j>=0 && prods.get(i).getPrice()>product.getPrice()){
-                    prods.set(j+1, prods.get(j));
-                    j--;
+    public void sortByPrice(int chk) {
+       Products temp=new Products();
+       int n=prods.size();
+       boolean swapped;
+       if(chk==0){
+        for (int i = 0; i < n-1; i++)
+        {
+           swapped=false;
+            for (int j = 0; j < n-1-i; j++)
+            {
+                if(prods.get(j).getPrice()>prods.get(j).getPrice()){
+                    temp.setPrice( prods.get(j).getPrice());
+                    temp.setName(prods.get(j).getName());
+                    temp.setQty(prods.get(j).getQty());
+                    temp.setTotalCost(prods.get(j).getTotalCost());
+                    
+                    prods.get(j).setPrice(prods.get(j+1).getPrice());
+                    prods.get(j).setName(prods.get(j+1).getName());
+                    prods.get(j).setQty(prods.get(j+1).getQty());
+                    prods.get(j).setTotalCost(prods.get(j+1).getTotalCost());
+                    
+                    prods.get(j+1).setPrice(temp.getPrice());
+                    prods.get(j+1).setName(temp.getName());
+                    prods.get(j+1).setQty(temp.getQty());
+                    prods.get(j+1).setTotalCost(temp.getTotalCost());
+                    swapped=true;
                 }
-                prods.set(j+1,product);
             }
-           
+            if(!swapped){
+                break;
+            }
         }
-        else if(asce == false && desce == true){
-            for(int i=0;i<prods.size();i++){
+            StringBuilder sb = new StringBuilder();
+            for(int i=0; i<prods.size();i++){
                 Products product = prods.get(i);
-                int j=i-1;
-
-                while(j>=0 && prods.get(i).getPrice()<product.getPrice()){
-                    prods.set(j+1, prods.get(j));
-                    j--;
+                 sb.append("Name: ").append(product.getName())
+                .append(", Price: ").append(product.getPrice())
+                .append(", Quantity: ").append(product.getQty())
+                .append(", Total Price: ").append(product.getTotalCost())
+                .append("\n");
+            }
+            
+            Output.output(sb.toString());
+       }
+       else if(chk==1){
+           for (int i = 0; i < n-1; i++)
+        {
+           swapped=false;
+            for (int j = 0; j < n-1-i; j++)
+            {
+                if(prods.get(j).getPrice()<prods.get(j).getPrice()){
+                    temp.setPrice( prods.get(j).getPrice());
+                    temp.setName(prods.get(j).getName());
+                    temp.setQty(prods.get(j).getQty());
+                    temp.setTotalCost(prods.get(j).getTotalCost());
+                    
+                    prods.get(j).setPrice(prods.get(j+1).getPrice());
+                    prods.get(j).setName(prods.get(j+1).getName());
+                    prods.get(j).setQty(prods.get(j+1).getQty());
+                    prods.get(j).setTotalCost(prods.get(j+1).getTotalCost());
+                    
+                    prods.get(j+1).setPrice(temp.getPrice());
+                    prods.get(j+1).setName(temp.getName());
+                    prods.get(j+1).setQty(temp.getQty());
+                    prods.get(j+1).setTotalCost(temp.getTotalCost());
+                    swapped=true;
                 }
-                prods.set(j+1,product);
+            }
+            if(!swapped){
+                break;
             } 
         }
+           StringBuilder sb = new StringBuilder();
+            for(int i=0; i<prods.size();i++){
+                Products product = prods.get(i);
+                 sb.append("Name: ").append(product.getName())
+                .append(", Price: ").append(product.getPrice())
+                .append(", Quantity: ").append(product.getQty())
+                .append(", Total Price: ").append(product.getTotalCost())
+                .append("\n");
+            }
+            
+            Output.output(sb.toString());
+       }
     }
 
     @Override
@@ -211,6 +216,30 @@ public class InventoryImpl implements Inventory{
         }
         Output.output("Total Price: " + totalPrice);
         
+    }
+
+    @Override
+    public void removeProd()
+    {
+        String name="";
+        boolean found=false;
+        name=Input.Input("enter name of product: ");
+        for (int i = 0; i < prods.size(); i++)
+        {
+            if(name.equals(prods.get(i).getName())){
+                prods.remove(i);
+                found=true;
+                break;
+            }
+            else{
+                continue;
+            }
+        }
+        if(!found){
+            Output.output("product not found in inventory!");
+        }
+        Output.output("product removed success!");
+        store.storeAfterRemove(prods);
     }
     
     

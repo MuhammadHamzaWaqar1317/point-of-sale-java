@@ -37,7 +37,8 @@ public class AcpProject {
                                     + "4. Calculate Total Inventory Cost\n"
                                     + "5. Sort Inventory\n"
                                     + "6. Sort by Price\n"
-                                    + "7) Exit";
+                                    + "7. Remove an item\n"
+                                    + "8) Exit";
                             choice = Integer.parseInt(Input.Input(message));
                             
                             switch (choice) {
@@ -82,10 +83,11 @@ public class AcpProject {
                                         choice = Integer.parseInt(Input.Input(message));
                                         switch (choice) {
                                             case 1:
-                                                inventory.sortByPrice(true, false);
+                                                inventory.sortByPrice(0);
                                                 break;
                                             case 2:
-                                                inventory.sortByPrice(false, true);
+                                                inventory.sortByPrice(1);
+                                                
                                                 break;
                                             case 3:
                                                 break; 
@@ -96,6 +98,9 @@ public class AcpProject {
                                     } while (choice != 3);
                                     break;
                                 case 7:
+                                        inventory.removeProd();
+                                        break;
+                                case 8:
                                     exit = true;
                                     break;
                                 default:

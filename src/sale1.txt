@@ -1,15 +1,5 @@
- name: Iphone
- quantity: 20
- price: 50000
- cost: 1000000.0
- ----------------
- name: asd
- quantity: 43
- price: 23
- cost: 989.0
- ----------------
- name: sabun
- quantity: 567
- price: 23
- cost: 13041.0
+ name: soap
+ quantity: 12
+ price: 120
+ cost: 1440.0
  ----------------

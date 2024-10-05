@@ -13,11 +13,13 @@ import java.util.Scanner;
  * @author Dell
  */
 public interface Inventory {
+    //public void addStart();
     public void addProduct();
     public void updateProduct();
     public void productPrice();
     public void viewInventory();
+    public void removeProd();
     public ArrayList<Products> searchProduct(String name);
     public void sortByName(boolean asce, boolean desce);
-    public void sortByPrice(boolean asce, boolean desce);
+    public void sortByPrice(int chk);
 }
