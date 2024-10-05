@@ -16,8 +16,8 @@ import java.util.ArrayList;
 public class Store {
     public void storeProd(String name,int quantity,int price,double cost,ArrayList<Products> list){
         File file,file1;
-         String path="E:\\Abdullah uni 2022-2026\\5th Semester\\Advanced  Computer Programming\\ACP-Project\\point-of-sale-java\\src\\"+"sales.txt";
-         String path2="E:\\Abdullah uni 2022-2026\\5th Semester\\Advanced  Computer Programming\\ACP-Project\\point-of-sale-java\\src\\"+"sale1.txt";
+         String path="C:\\Abdullah\\university\\5\\ACP\\Project\\point-of-sale-java\\src\\sale1.txt";
+         String path2="C:\\Abdullah\\university\\5\\ACP\\Project\\point-of-sale-java\\src\\sales.txt";
         file=new File(path);
         file1=new File(path2);
              
@@ -44,13 +44,8 @@ public class Store {
             BufferedWriter writer1 = new BufferedWriter(new FileWriter(path,true));
             BufferedWriter writer2 = new BufferedWriter(new FileWriter(path2,true))
         ) {
-            // Write content to the first file
             writer1.write(content);
-            //writer1.newLine(); // Add a new line (optional)
-
-            // Write content to the second file
             writer2.write(content2);
-            //writer2.newLine(); // Add a new line (optional)
 
             System.out.println("Content written to both files successfully.");
         } catch (IOException e) {

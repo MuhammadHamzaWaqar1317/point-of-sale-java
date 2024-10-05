@@ -64,54 +64,43 @@ public class InventoryImpl implements Inventory{
     @Override
     public void viewInventory() {
         StringBuilder sb = new StringBuilder();
-        if (prods.isEmpty()) {
-             Output.output("No products in inventory.");
-
-        }
        int count=0;
-        String path="E:\\Abdullah uni 2022-2026\\5th Semester\\Advanced  Computer Programming\\ACP-Project\\point-of-sale-java\\src\\"+"sale1.txt";
+        String path="C:\\Abdullah\\university\\5\\ACP\\Project\\point-of-sale-java\\src\\sale1.txt";
         ArrayList<String> example=new ArrayList<>();
         try (BufferedReader reader = new BufferedReader(new FileReader(path))) {
             String line;
             while ((line = reader.readLine()) != null){
+               Output.output(line);
                count++;
                example.add(line);    
             }
-            System.out.println(count);
              
              int countpro=0;
              for (int i = 0; i < count/4; i++)
             {
-                
-                 for (int j = countpro; j < countpro+4; j++){
-            
-                     prods.get(i).setName(example.get(j));
-                     //countpro++;
-                     int qty = Integer.parseInt(example.get(j+1));
-                     prods.get(i).setQty(qty);
-                     //countpro++;
-                     int price=Integer.parseInt(example.get(j+2));
-                     prods.get(i).setPrice(price);
-                     //countpro++;
-                     double total=Double.parseDouble(example.get(j+3));
-                     prods.get(i).setTotalCost(total);
-                     countpro=countpro+4;
-                     break;
-                 }
+                String name = example.get(countpro);
+                int qty = Integer.parseInt(example.get(countpro + 1));
+                int price = Integer.parseInt(example.get(countpro + 2));
+                int total = Integer.parseInt(example.get(countpro + 3));
+                Products products = new Products(name,price,qty,total);
+                prods.add(products);
+                countpro += 4;
             }
-        
+            for(int i=0; i<prods.size();i++){
+                Products products = new Products();
+                sb.append("Name: ").append(products.getName())
+                .append(", Price: ").append(products.getPrice())
+                .append(", Quantity: ").append(products.getQty())
+                .append("\n");
+            }
+            
+            Output.output(sb.toString());
         } catch (IOException e) {
-            System.err.println("Error reading file: " + e.getMessage());
+            Output.errorMsg("Error reading file: ");
+        }catch (NumberFormatException e) {
+            Output.errorMsg("Error parsing number: ");
         }
         
-        for (Products product : prods) {
-            sb.append("Name: ").append(product.getName())
-              .append(", Price: ").append(product.getPrice())
-              .append(", Quantity: ").append(product.getQty())
-              .append("\n");
-        }
-        Output.output(sb.toString());
-
     }
    
 
@@ -198,5 +187,3 @@ public class InventoryImpl implements Inventory{
     
     
 }
-
-// abdulllah first commit and push

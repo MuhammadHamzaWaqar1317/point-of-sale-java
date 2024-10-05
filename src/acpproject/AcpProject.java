@@ -23,7 +23,6 @@ public class AcpProject {
             String message =  "1) Login Account\n"
                             + "2) Exit";
             int choice = Integer.parseInt(Input.Input(message));
-            System.out.println(choice);
             switch (choice) {
                 case 1:
                     String email = Input.Input("Enter Email:");
@@ -70,7 +69,7 @@ public class AcpProject {
                                             case 3:
                                                 break;
                                             default:
-                                                System.out.println("Invalid Input");
+                                                Output.output("Invalid option!!!");
                                                 break;
                                         }
                                     } while (choice != 3); 
@@ -91,7 +90,7 @@ public class AcpProject {
                                             case 3:
                                                 break; 
                                             default:
-                                                System.out.println("Invalid Input");
+                                                Output.output("Invalid option!!!");
                                                 break;
                                         }
                                     } while (choice != 3);
@@ -100,7 +99,7 @@ public class AcpProject {
                                     exit = true;
                                     break;
                                 default:
-                                    System.out.println("Invalid Input");
+                                    Output.output("Invalid option!!!");
                                     break;
                             }
                         } while (!exit);
@@ -112,7 +111,7 @@ public class AcpProject {
                     exit = true;
                     break;
                 default:
-                    System.out.println("Invalid Input");
+                    Output.output("Invalid option!!!");
                     break;
             }
         }           

@@ -17,7 +17,7 @@ public class Products {
     private String name;
     private int price;
     private int qty;
-    private double totalCost;
+    private int totalCost;
     Scanner cin=new Scanner(System.in);
 
     Products(){
@@ -31,7 +31,7 @@ public class Products {
         totalCost=obj.totalCost;
     }
 
-    Products(String name, int price, int qty, double totalCost) {
+    Products(String name, int price, int qty, int totalCost) {
         this.name = name;
         this.price = price;
         this.qty = qty;
@@ -66,7 +66,7 @@ public class Products {
         this.qty = qty;
     }
 
-    public void setTotalCost(double totalCost) {
+    public void setTotalCost(int totalCost) {
         this.totalCost = totalCost;
     }
     
