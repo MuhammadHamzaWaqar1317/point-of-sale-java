@@ -21,5 +21,5 @@ public interface Inventory {
     public void removeProd();
     public ArrayList<Products> searchProduct(String name);
     public void sortByName(boolean asce, boolean desce);
-    public void sortByPrice(int chk);
+    public void sortByPrice(boolean asce, boolean desce);
 }

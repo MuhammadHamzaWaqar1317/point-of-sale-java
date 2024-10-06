@@ -105,8 +105,9 @@ public class InventoryImpl implements Inventory{
                         }
                 prods.set(j+1,product);
                 }
-           
+                store.storeAfterRemove(prods);
         }
+        
         else if(desce ){
             for(int i=1;i<prods.size();i++){
                 Products product = prods.get(i);
@@ -118,94 +119,45 @@ public class InventoryImpl implements Inventory{
                         }
                 prods.set(j+1,product);
                 }
+            store.storeAfterRemove(prods);
         }
+        
     }
     //try commit ;)
     @Override
-    public void sortByPrice(int chk) {
-       Products temp=new Products();
-       int n=prods.size();
-       boolean swapped;
-       if(chk==0){
-        for (int i = 0; i < n-1; i++)
-        {
-           swapped=false;
-            for (int j = 0; j < n-1-i; j++)
-            {
-                if(prods.get(j).getPrice()>prods.get(j).getPrice()){
-                    temp.setPrice( prods.get(j).getPrice());
-                    temp.setName(prods.get(j).getName());
-                    temp.setQty(prods.get(j).getQty());
-                    temp.setTotalCost(prods.get(j).getTotalCost());
-                    
-                    prods.get(j).setPrice(prods.get(j+1).getPrice());
-                    prods.get(j).setName(prods.get(j+1).getName());
-                    prods.get(j).setQty(prods.get(j+1).getQty());
-                    prods.get(j).setTotalCost(prods.get(j+1).getTotalCost());
-                    
-                    prods.get(j+1).setPrice(temp.getPrice());
-                    prods.get(j+1).setName(temp.getName());
-                    prods.get(j+1).setQty(temp.getQty());
-                    prods.get(j+1).setTotalCost(temp.getTotalCost());
-                    swapped=true;
+    public void sortByPrice(boolean asce,boolean desc) {
+       if(asce){
+        for(int i=1;i<prods.size();i++){
+
+                Products product=prods.get(i);
+                int j=i-1;
+
+                 while (j >= 0 && prods.get(j).getPrice() > 0 && prods.get(j).getPrice() > product.getPrice()){
+
+                    prods.set(j+1,prods.get(j));
+                    j--;
+                        }
+                prods.set(j+1,product);
                 }
-            }
-            if(!swapped){
-                break;
-            }
+        store.storeAfterRemove(prods);
         }
-            StringBuilder sb = new StringBuilder();
-            for(int i=0; i<prods.size();i++){
-                Products product = prods.get(i);
-                 sb.append("Name: ").append(product.getName())
-                .append(", Price: ").append(product.getPrice())
-                .append(", Quantity: ").append(product.getQty())
-                .append(", Total Price: ").append(product.getTotalCost())
-                .append("\n");
-            }
-            
-            Output.output(sb.toString());
-       }
-       else if(chk==1){
-           for (int i = 0; i < n-1; i++)
-        {
-           swapped=false;
-            for (int j = 0; j < n-1-i; j++)
-            {
-                if(prods.get(j).getPrice()<prods.get(j).getPrice()){
-                    temp.setPrice( prods.get(j).getPrice());
-                    temp.setName(prods.get(j).getName());
-                    temp.setQty(prods.get(j).getQty());
-                    temp.setTotalCost(prods.get(j).getTotalCost());
-                    
-                    prods.get(j).setPrice(prods.get(j+1).getPrice());
-                    prods.get(j).setName(prods.get(j+1).getName());
-                    prods.get(j).setQty(prods.get(j+1).getQty());
-                    prods.get(j).setTotalCost(prods.get(j+1).getTotalCost());
-                    
-                    prods.get(j+1).setPrice(temp.getPrice());
-                    prods.get(j+1).setName(temp.getName());
-                    prods.get(j+1).setQty(temp.getQty());
-                    prods.get(j+1).setTotalCost(temp.getTotalCost());
-                    swapped=true;
+    
+       else if(desc){
+            for(int i=1;i<prods.size();i++){
+
+                Products product=prods.get(i);
+                int j=i-1;
+
+                 while (j >= 0 && prods.get(j).getPrice() > 0 && prods.get(j).getPrice() < product.getPrice()){
+
+                    prods.set(j+1,prods.get(j));
+                    j--;
+                        }
+                prods.set(j+1,product);
                 }
-            }
-            if(!swapped){
-                break;
-            } 
+        store.storeAfterRemove(prods);
         }
-           StringBuilder sb = new StringBuilder();
-            for(int i=0; i<prods.size();i++){
-                Products product = prods.get(i);
-                 sb.append("Name: ").append(product.getName())
-                .append(", Price: ").append(product.getPrice())
-                .append(", Quantity: ").append(product.getQty())
-                .append(", Total Price: ").append(product.getTotalCost())
-                .append("\n");
-            }
-            
-            Output.output(sb.toString());
-       }
+           
     }
 
     @Override

@@ -83,10 +83,10 @@ public class AcpProject {
                                         choice = Integer.parseInt(Input.Input(message));
                                         switch (choice) {
                                             case 1:
-                                                inventory.sortByPrice(0);
+                                                inventory.sortByPrice(true,false);
                                                 break;
                                             case 2:
-                                                inventory.sortByPrice(1);
+                                                inventory.sortByPrice(false,true);
                                                 
                                                 break;
                                             case 3:

@@ -1,10 +1,20 @@
- name: soap
+ name: aqal
  quantity: 12
- price: 120
- cost: 1440.0
+ price: 50
+ cost: 600.0
  ----------------
  name: apple
  quantity: 12
  price: 100
  cost: 1200.0
+ ----------------
+ name: soap
+ quantity: 12
+ price: 120
+ cost: 1440.0
+ ----------------
+ name: lemon
+ quantity: 50
+ price: 150
+ cost: 7500.0
  ----------------
