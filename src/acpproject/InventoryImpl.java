@@ -22,10 +22,28 @@ public class InventoryImpl implements Inventory{
        store.addStart(prods);
              
     }
+    
+    public boolean checkDuplicates(String name){
+        for (int i = 0; i < prods.size(); i++) {
+            if(prods.get(i).getName().equals(name)){
+                return true;
+            }
+        }
+        return false;
+    }
 
     @Override
     public void addProduct() {
-        String name = Input.Input("Enter Product name: ");
+        boolean duplicateProduct=false;
+        String name="";
+        do {            
+            name = Input.Input("Enter Product name: ");
+            duplicateProduct=checkDuplicates(name);
+            if (duplicateProduct) {
+                Output.errorMsg("Item Already Present in Inventory");
+            }
+        } while (duplicateProduct);
+        
         int price = productActions.getPositiveValue("Price");
         int quantity = productActions.getPositiveValue("Qty");
         Products newProduct=new Products(name,price,quantity,price*quantity);
