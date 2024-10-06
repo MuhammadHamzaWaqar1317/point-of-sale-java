@@ -3,3 +3,8 @@
  price: 120
  cost: 1440.0
  ----------------
+ name: apple
+ quantity: 12
+ price: 100
+ cost: 1200.0
+ ----------------
