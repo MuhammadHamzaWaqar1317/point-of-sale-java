@@ -21,7 +21,18 @@ public class AccountImp implements Account{
             Output.output("Login Successfully");
             return true;
         }
+       
         return false;
     }
-    
+   
+    @Override
+    public boolean loginCash(String email, String password)
+    {
+        cashier cs=new cashier();
+        if(email.equals(cs.getEmail()) && password.equals(cs.getPass())){
+        Output.output("Cashier login success!");
+        return true;
+    }
+        return false;
+    }
 }

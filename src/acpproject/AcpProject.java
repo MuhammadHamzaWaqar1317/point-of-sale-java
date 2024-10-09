@@ -16,12 +16,15 @@ public class AcpProject {
         Inventory inventory = new InventoryImpl();
         Products prod = new Products();
         Account account = new AccountImp();
+        CartImpl cart=new CartImpl();
         int id = 0;
         boolean exit = false;
-        
+        int chi=0;
+        do{
         while (!exit) {
-            String message =  "1) Login Account\n"
-                            + "2) Exit";
+            String message =  "1) Login Account\n"+
+                              "2) Cashier\n"  
+                            + "3) Exit";
             int choice = Integer.parseInt(Input.Input(message));
             switch (choice) {
                 case 1:
@@ -38,7 +41,8 @@ public class AcpProject {
                                     + "5. Sort Inventory\n"
                                     + "6. Sort by Price\n"
                                     + "7. Remove an item\n"
-                                    + "8) Exit";
+                                    + "8) Exit\n"
+                                    + "9. back";
                             choice = Integer.parseInt(Input.Input(message));
                             
                             switch (choice) {
@@ -103,22 +107,63 @@ public class AcpProject {
                                 case 8:
                                     exit = true;
                                     break;
+                                case 9:
+                                    chi=1;
+                                    break;
                                 default:
                                     Output.output("Invalid option!!!");
                                     break;
                             }
-                        } while (!exit);
+                        } while (chi!=1);
                     } else {
                         Output.output("Login Failed, Account Not Found");
                     }
                     break;
                 case 2:
-                    exit = true;
+                     String emaill = Input.Input("Enter Email:");
+                    String pass = Input.Input("Enter Password:");
+                    boolean isCashier = account.loginCash(emaill, pass);
+                    if(isCashier){
+                        int cho=0;
+                        do{
+                        message="1. add items\n"+
+                                "2. remove items\n"+
+                                "3. view cart\n"+
+                                "4. checkout\n"+
+                                "5. exit\n"+
+                                "6. back";
+                        cho=Integer.parseInt(Input.Input(message));
+                        switch(cho){
+                            case 1:
+                                cart.addItems();
+                                break;
+                            case 2:
+                                cart.removeItems();
+                                break;
+                            case 3:
+                                cart.viewCart();
+                                break;
+                            case 4:
+                                cart.checkOut();
+                                break;
+                            case 5:
+                                System.exit(0);
+                            case 6:
+                                chi=1;
+                                break;
+                            default:
+                                Output.output("enter a valid choice!");
+                        }
+                        }while(cho!=6);
+                    }
                     break;
+                case 3:
+                    System.exit(0);
                 default:
                     Output.output("Invalid option!!!");
                     break;
             }
         }           
+    }while(chi==1);
     }
 }

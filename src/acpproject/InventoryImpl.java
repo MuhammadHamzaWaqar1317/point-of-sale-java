@@ -213,6 +213,8 @@ public class InventoryImpl implements Inventory{
         Output.output("product removed success!");
         store.storeAfterRemove(prods);
     }
-    
+    public ArrayList<Products> access(){
+        return prods;
+    }
     
 }
