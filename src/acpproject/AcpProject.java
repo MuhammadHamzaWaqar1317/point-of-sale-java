@@ -16,7 +16,8 @@ public class AcpProject {
         Inventory inventory = new InventoryImpl();
         Products prod = new Products();
         Account account = new AccountImp();
-        CartImpl cart=new CartImpl();
+        
+        CartImpl cart=new CartImpl(inventory.getProds());
         int id = 0;
         boolean exit = false;
         int chi=0;

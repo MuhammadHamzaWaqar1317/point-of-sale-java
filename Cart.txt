@@ -1,0 +1,5 @@
+
+item name: laptop
+item price: 200
+item quantity: 10
+cost: 2000.0

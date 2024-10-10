@@ -18,11 +18,16 @@ import java.util.logging.Logger;
  */
 public class CartImpl implements Cart
 {
-    ArrayList<Products> ps=new ArrayList<>();
+    ArrayList<Products> ps;
     ArrayList<Products> newCart=new ArrayList<>();
     InventoryImpl pl;
     cashier cs;
     int quan=0;
+    
+    CartImpl(ArrayList<Products> ps){
+        this.ps=ps;
+    }
+    
     @Override
     public void addItems()
     {   
@@ -30,32 +35,8 @@ public class CartImpl implements Cart
         
         int count=0;
         String pathe="E:\\Abdullah uni 2022-2026\\5th Semester\\Advanced  Computer Programming\\ACP-Project\\point-of-sale-java\\src\\sales.txt";
-        ArrayList<String> example=new ArrayList<>();
+        
         file=new File(pathe);
-        try (BufferedReader reader = new BufferedReader(new FileReader(file))) {
-            String line;
-            while ((line = reader.readLine()) != null){
-               count++;
-               example.add(line);    
-            }
-             
-             int countpro=0;
-             for (int i = 0; i < count/4; i++)
-            {
-                String name = example.get(countpro);
-                int qty = Integer.parseInt(example.get(countpro + 1));
-                int price = Integer.parseInt(example.get(countpro + 2));
-                double total = Double.parseDouble(example.get(countpro + 3));
-                Products products = new Products(name,price,qty,total);
-                ps.add(products);
-                countpro += 4;
-            }
-             } catch (IOException e) {
-            Output.errorMsg("Error reading file: ");
-        }catch (NumberFormatException e) {
-            Output.errorMsg("Error parsing number: ");
-        }
-        System.out.println(ps.get(0).getName()+"\n"+ps.get(0).getPrice()+"\n"+ps.get(0).getQty()+"\n"+ps.get(0).getTotalCost());
             String name;
             Products temp=new Products();
             boolean isFound=false;

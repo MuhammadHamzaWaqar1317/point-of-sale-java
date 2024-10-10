@@ -14,13 +14,17 @@ import java.util.ArrayList;
  * @author abdul
  */
 public class InventoryImpl implements Inventory{
-    public ArrayList<Products> prods = new ArrayList<>();
+    private ArrayList<Products> prods = new ArrayList<>();
      Store store=new Store();
     private Products productActions;
     public InventoryImpl() {
        productActions=new Products();
        store.addStart(prods);
              
+    }
+    @Override
+    public ArrayList<Products> getProds() {
+        return prods;
     }
     
     public boolean checkDuplicates(String name){
