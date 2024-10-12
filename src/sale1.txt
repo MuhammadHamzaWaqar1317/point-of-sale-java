@@ -1,8 +1,3 @@
- name: aqal
- quantity: 12
- price: 50
- cost: 600.0
- ----------------
  name: apple
  quantity: 12
  price: 100
