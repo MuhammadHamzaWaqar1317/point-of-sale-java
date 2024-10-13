@@ -12,7 +12,7 @@ import javax.swing.JOptionPane;
  * @author abdul
  */
 public class Input {
-    public static String Input(String message){
+    public static String getInput(String message){
         return JOptionPane.showInputDialog(null,message);
     }
 }

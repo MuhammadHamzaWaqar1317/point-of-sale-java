@@ -14,7 +14,7 @@ import java.util.ArrayList;
  * @author abdul
  */
 public class InventoryImpl implements Inventory{
-    public ArrayList<Products> prods = new ArrayList<>();
+    private ArrayList<Products> prods = new ArrayList<>();
      Store store=new Store();
     private Products productActions;
     public InventoryImpl() {
@@ -22,10 +22,32 @@ public class InventoryImpl implements Inventory{
        store.addStart(prods);
              
     }
+    @Override
+    public ArrayList<Products> getProds() {
+        return prods;
+    }
+    
+    public boolean checkDuplicates(String name){
+        for (int i = 0; i < prods.size(); i++) {
+            if(prods.get(i).getName().equals(name)){
+                return true;
+            }
+        }
+        return false;
+    }
 
     @Override
     public void addProduct() {
-        String name = Input.Input("Enter Product name: ");
+        boolean duplicateProduct=false;
+        String name="";
+        do {            
+            name = Input.getInput("Enter Product name: ");
+            duplicateProduct=checkDuplicates(name);
+            if (duplicateProduct) {
+                Output.errorMsg("Item Already Present in Inventory");
+            }
+        } while (duplicateProduct);
+        
         int price = productActions.getPositiveValue("Price");
         int quantity = productActions.getPositiveValue("Qty");
         Products newProduct=new Products(name,price,quantity,price*quantity);
@@ -39,7 +61,7 @@ public class InventoryImpl implements Inventory{
     @Override
     public void updateProduct() {
         
-        String name = Input.Input("Enter Product name to Search in Inventory: ");
+        String name = Input.getInput("Enter Product name to Search in Inventory: ");
         
         
         boolean notFound = false;
@@ -177,7 +199,7 @@ public class InventoryImpl implements Inventory{
     {
         String name="";
         boolean found=false;
-        name=Input.Input("enter name of product: ");
+        name=Input.getInput("enter name of product: ");
         for (int i = 0; i < prods.size(); i++)
         {
             if(name.equals(prods.get(i).getName())){
@@ -195,6 +217,8 @@ public class InventoryImpl implements Inventory{
         Output.output("product removed success!");
         store.storeAfterRemove(prods);
     }
-    
+    public ArrayList<Products> access(){
+        return prods;
+    }
     
 }

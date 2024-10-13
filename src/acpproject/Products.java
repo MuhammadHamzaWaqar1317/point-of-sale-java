@@ -76,7 +76,7 @@ public class Products {
         while(true){
             try {
 
-                    int value=Integer.parseInt(Input.Input("Enter Product "+method));
+                    int value=Integer.parseInt(Input.getInput("Enter Product "+method));
                     if (value<=0) {
                         Output.errorMsg("Please Enter a value Greater than 0");
                         continue;
