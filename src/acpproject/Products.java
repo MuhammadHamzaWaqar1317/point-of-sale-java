@@ -20,18 +20,18 @@ public class Products {
     private double totalCost;
     Scanner cin=new Scanner(System.in);
 
-    Products(){
+    public Products(){
         name="";
     }
     
-    Products(Products obj){
+    public Products(Products obj){
         name=obj.name;
         price=obj.price;
         qty=obj.qty;
         totalCost=obj.totalCost;
     }
 
-    Products(String name, int price, int qty, double totalCost) {
+    public Products(String name, int price, int qty, double totalCost) {
         this.name = name;
         this.price = price;
         this.qty = qty;

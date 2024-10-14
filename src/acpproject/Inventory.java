@@ -15,7 +15,7 @@ import java.util.Scanner;
 public interface Inventory {
     //public void addStart();
     ArrayList<Products> getProds();
-    public void addProduct();
+    public void addProduct(Products prod);
     public void updateProduct();
     public void productPrice();
     public void viewInventory();

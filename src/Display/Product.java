@@ -4,14 +4,17 @@
  */
 package Display;
 
+import acpproject.*;
 import java.awt.Color;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 import javax.swing.*;
 
 /**
  *
  * @author abdul
  */
-public class Products {
+public class Product {
     static JFrame frame;
     static JButton addProduct;
     static JButton updateProduct;
@@ -34,6 +37,13 @@ public class Products {
         
         addProduct = new JButton("Add Products");
         addProduct.setBounds(110, 20, 150, 40);
+        addProduct.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                frame.setVisible(false);
+                AppProducts.addProducts();
+            }
+        });
         panel.add(addProduct);
         
         updateProduct = new JButton("Update Products");
@@ -46,6 +56,13 @@ public class Products {
         
         display = new JButton("Display Products");
         display.setBounds(110,180,150,40);
+        display.addActionListener(new ActionListener(){
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                Inventory inv = new InventoryImpl();
+                inv.viewInventory();
+            }
+        });
         panel.add(display);
         
         sortByName = new JButton("Sort Products By Name");

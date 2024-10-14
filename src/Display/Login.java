@@ -73,7 +73,7 @@ public class Login {
         if(isAdmin){
             frame.setVisible(false);
             Output.output("Login Successful");
-            Products.productsFrame();
+            Product.productsFrame();
         }
         else{
             Output.output("Invalid login credentials\n\t\tlogin failed");

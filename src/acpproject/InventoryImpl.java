@@ -27,9 +27,10 @@ public class InventoryImpl implements Inventory{
         return prods;
     }
     
-    public boolean checkDuplicates(String name){
+    public boolean checkDuplicates(Products prod){
         for (int i = 0; i < prods.size(); i++) {
-            if(prods.get(i).getName().equals(name)){
+            
+            if(prods.get(i).getName().equals(prod.getName())){
                 return true;
             }
         }
@@ -37,20 +38,18 @@ public class InventoryImpl implements Inventory{
     }
 
     @Override
-    public void addProduct() {
+    public void addProduct(Products prod) {
         boolean duplicateProduct=false;
-        String name="";
         do {            
-            name = Input.getInput("Enter Product name: ");
-            duplicateProduct=checkDuplicates(name);
+            duplicateProduct=checkDuplicates(prod);
             if (duplicateProduct) {
                 Output.errorMsg("Item Already Present in Inventory");
             }
         } while (duplicateProduct);
-        
+        String name = prod.getName();
         int price = productActions.getPositiveValue("Price");
         int quantity = productActions.getPositiveValue("Qty");
-        Products newProduct=new Products(name,price,quantity,price*quantity);
+        Products newProduct=new Products(prod);
         prods.add(newProduct);
        double cost=price*quantity;
         store.storeProd(name,price,quantity,cost,prods);
