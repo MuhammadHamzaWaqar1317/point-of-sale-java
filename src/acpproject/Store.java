@@ -94,7 +94,7 @@ public class Store {
             System.out.println("deleted!");
         }
         else{
-            System.out.println("error deleting file");
+            Output.errorMsg("error deleting file");
         }
         
         try{
@@ -102,7 +102,7 @@ public class Store {
                   System.out.println("file created!");    
               }   
            } catch (IOException ex){
-                System.out.println("create file failed!");
+                Output.errorMsg("create file failed!");
               }
          for (int i = 0; i < list.size(); i++)
         {

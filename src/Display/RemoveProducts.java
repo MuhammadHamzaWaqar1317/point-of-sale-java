@@ -6,24 +6,24 @@ package Display;
 
 import acpproject.InventoryImpl;
 import acpproject.Products;
-import java.awt.Color;
 import java.awt.*;
-import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
+import java.awt.event.*;
+import java.util.ArrayList;
 import javax.swing.*;
 
 /**
  *
  * @author abdul
  */
-public class AppProducts {
+public class RemoveProducts {
     static JFrame frame;
     static JLabel messageLabel;
     static JTextField productsName, productsPrice, productsQuantity;
-    static JButton addButton, back;
+    static JButton addButton, back,searchButton;
+    static InventoryImpl inv = new InventoryImpl();
     
-    public static void addProducts(){
-        frame = new JFrame("Add Products");
+    public static void removeProduct(){
+        frame = new JFrame("Remove Products");
         frame.setSize(400,600);
         frame.setLocation(760, 240);
         frame.setUndecorated(true);
@@ -33,7 +33,7 @@ public class AppProducts {
         panel.setBackground(Color.decode("#7DBFFF"));
         frame.add(panel);
         
-        messageLabel = new JLabel("Add Products");
+        messageLabel = new JLabel("Remove Products");
         messageLabel.setBounds(150, 30, 150, 40);
         messageLabel.setFont(new Font("Arial",Font.BOLD,16));
         panel.add(messageLabel);
@@ -62,8 +62,18 @@ public class AppProducts {
         productsQuantity.setBounds(50, 330, 300, 40);
         panel.add(productsQuantity);
         
-        addButton = new JButton("Add");
-        addButton.setBounds(75, 380, 100, 40);
+        searchButton = new JButton("search");
+        searchButton.setBounds(150, 380, 100, 40);
+        searchButton.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                searchAction();
+            }
+        });
+        panel.add(searchButton);
+        
+        addButton = new JButton("Remove");
+        addButton.setBounds(75, 420, 100, 40);
         addButton.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
@@ -73,7 +83,7 @@ public class AppProducts {
         panel.add(addButton);
         
         back = new JButton("Back");
-        back.setBounds(225, 380, 100, 40);
+        back.setBounds(225, 420, 100, 40);
         back.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
@@ -84,39 +94,28 @@ public class AppProducts {
         panel.add(back);
         
         frame.setVisible(true);
-        
+    }
+    public static void searchAction(){
+       String name = productsName.getText();
+        ArrayList<Products> prods = inv.searchProduct(name);
+        for(int i=0;i<prods.size();i++){
+            Products prod = prods.get(i);
+            productsName.setText(prod.getName());
+            productsPrice.setText(String.valueOf(prod.getPrice()));
+            productsQuantity.setText(String.valueOf(prod.getQty()));
+        }
+        productsName.disable();
+        productsPrice.disable();
+        productsQuantity.disable();
     }
     
     public static void handleAction(){
         String name = productsName.getText();
-        int price = 0;
-        int quantity = 0;
-
-        try {
-            price = Integer.parseInt(productsPrice.getText());
-            if (price <= 0) {
-                throw new NumberFormatException("Price must be greater than zero.");
-            }
-        } catch (NumberFormatException e) {
-            Output.errorMsg("Invalid Price: " + e.getMessage());
-            return;
-        }
-
-        try {
-            quantity = Integer.parseInt(productsQuantity.getText());
-            if (quantity <= 0) {
-                throw new NumberFormatException("Quantity must be greater than zero.");
-            }
-        } catch (NumberFormatException e) {
-            Output.errorMsg("Invalid Quantity: " + e.getMessage());
-            return;
-        }
-
+        int price = Integer.parseInt(productsPrice.getText());
+        int quantity = Integer.parseInt(productsQuantity.getText());
         double total = price * quantity;
-        InventoryImpl inv = new InventoryImpl();
         Products prod = new Products(name, price, quantity, total);
-        inv.addProduct(prod);
-        Output.output("Product Added Successfully");
+        
+        inv.removeProd(prod);
     }
-
 }

@@ -47,41 +47,35 @@ public class InventoryImpl implements Inventory{
             }
         } while (duplicateProduct);
         String name = prod.getName();
-        int price = productActions.getPositiveValue("Price");
-        int quantity = productActions.getPositiveValue("Qty");
+        int price = prod.getPrice();
+        int quantity = prod.getQty();
         Products newProduct=new Products(prod);
         prods.add(newProduct);
-       double cost=price*quantity;
+        double cost=price*quantity;
         store.storeProd(name,price,quantity,cost,prods);
         Output.output("Product Added Successfully");
-        
+        sortByName(true, false);
     }
 
     @Override
-    public void updateProduct() {
-        
-        String name = Input.getInput("Enter Product name to Search in Inventory: ");
-        
-        
-        boolean notFound = false;
+    public void updateProduct(Products prod) {
+        boolean found = false;
         for(int i=0;i<prods.size();i++){
             Products product = prods.get(i);
-            if(name.equals(product.getName())){
-                product.setPrice(productActions.getPositiveValue("Price"));
-                product.setQty(productActions.getPositiveValue("Qty"));
-                product.setTotalCost(product.getPrice()*product.getQty());
-                store.storeProd(prods.get(i).getName(),prods.get(i).getQty(),prods.get(i).getPrice(),prods.get(i).getTotalCost(),prods);
-                notFound = true;
+            if(product.getName().equals(prod.getName())){
+                product.setPrice(prod.getPrice());
+                product.setQty(prod.getQty());
+                product.setTotalCost(prod.getTotalCost());
+                store.storeProd(prod.getName(), prod.getPrice(), prod.getQty(), prod.getTotalCost(), prods);
+                Output.output("Product Updated Successfully");
+                found = true;
                 break;
             }
         }
-        
-        if(notFound){
-            Output.output("Product Updated");
+        if(!found){
+            Output.output("Product Not Found");
         }
-        else{
-            Output.errorMsg("Product Not Found");
-        }
+        sortByName(true, false);
     }
 
     @Override
@@ -126,7 +120,6 @@ public class InventoryImpl implements Inventory{
                         }
                 prods.set(j+1,product);
                 }
-                store.storeAfterRemove(prods);
         }
         
         else if(desce ){
@@ -140,9 +133,8 @@ public class InventoryImpl implements Inventory{
                         }
                 prods.set(j+1,product);
                 }
-            store.storeAfterRemove(prods);
         }
-        
+        store.storeAfterRemove(prods);
     }
     //try commit ;)
     @Override
@@ -160,7 +152,6 @@ public class InventoryImpl implements Inventory{
                         }
                 prods.set(j+1,product);
                 }
-        store.storeAfterRemove(prods);
         }
     
        else if(desc){
@@ -176,9 +167,8 @@ public class InventoryImpl implements Inventory{
                         }
                 prods.set(j+1,product);
                 }
-        store.storeAfterRemove(prods);
         }
-           
+        store.storeAfterRemove(prods);
     }
 
     @Override
@@ -194,14 +184,12 @@ public class InventoryImpl implements Inventory{
     }
 
     @Override
-    public void removeProd()
+    public void removeProd(Products prod)
     {
-        String name="";
         boolean found=false;
-        name=Input.getInput("enter name of product: ");
         for (int i = 0; i < prods.size(); i++)
         {
-            if(name.equals(prods.get(i).getName())){
+            if(prod.getName().equals(prods.get(i).getName())){
                 prods.remove(i);
                 found=true;
                 break;
@@ -215,6 +203,7 @@ public class InventoryImpl implements Inventory{
         }
         Output.output("product removed success!");
         store.storeAfterRemove(prods);
+        sortByName(true, false);
     }
     public ArrayList<Products> access(){
         return prods;

@@ -16,10 +16,10 @@ public interface Inventory {
     //public void addStart();
     ArrayList<Products> getProds();
     public void addProduct(Products prod);
-    public void updateProduct();
+    public void updateProduct(Products prod);
     public void productPrice();
     public void viewInventory();
-    public void removeProd();
+    public void removeProd(Products prod);
     public ArrayList<Products> searchProduct(String name);
     public void sortByName(boolean asce, boolean desce);
     public void sortByPrice(boolean asce, boolean desce);

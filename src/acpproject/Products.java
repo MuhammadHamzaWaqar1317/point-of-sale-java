@@ -18,7 +18,6 @@ public class Products {
     private int price;
     private int qty;
     private double totalCost;
-    Scanner cin=new Scanner(System.in);
 
     public Products(){
         name="";
@@ -70,22 +69,5 @@ public class Products {
         this.totalCost = totalCost;
     }
     
-    ////////////////////////  METHODS
-    
-    public int getPositiveValue(String method){
-        while(true){
-            try {
 
-                    int value=Integer.parseInt(Input.getInput("Enter Product "+method));
-                    if (value<=0) {
-                        Output.errorMsg("Please Enter a value Greater than 0");
-                        continue;
-                    }
-                    return value;
-
-            } catch (Exception e) {
-                Output.errorMsg("Please Enter an Integer Value");
-            }
-        }
-    }
 }
