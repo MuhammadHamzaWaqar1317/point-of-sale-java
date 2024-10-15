@@ -37,7 +37,7 @@ public class CartImpl implements Cart
     {   
         File file;
         
-        String pathe="E:\\Abdullah uni 2022-2026\\5th Semester\\Advanced  Computer Programming\\ACP-Project\\point-of-sale-java\\src\\sales.txt";
+        String pathe="C:\\Abdullah\\university\\5\\ACP\\Project\\point-of-sale-java\\src\\sales.txt";
         
         file=new File(pathe);
             String name;
@@ -94,7 +94,7 @@ public class CartImpl implements Cart
         }
         
         //writing back to inventory file
-        String path2="E:\\Abdullah uni 2022-2026\\5th Semester\\Advanced  Computer Programming\\ACP-Project\\point-of-sale-java\\src\\sale1.txt";
+        String path2="C:\\Abdullah\\university\\5\\ACP\\Project\\point-of-sale-java\\src\\Cart.txt";
         File file2;
         file2=new File(path2);
         

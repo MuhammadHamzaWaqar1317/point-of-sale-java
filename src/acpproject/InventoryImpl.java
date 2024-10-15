@@ -134,7 +134,7 @@ public class InventoryImpl implements Inventory{
                 prods.set(j+1,product);
                 }
         }
-        store.storeAfterRemove(prods);
+//        store.storeAfterRemove(prods);
     }
     //try commit ;)
     @Override
@@ -168,7 +168,7 @@ public class InventoryImpl implements Inventory{
                 prods.set(j+1,product);
                 }
         }
-        store.storeAfterRemove(prods);
+//        store.storeAfterRemove(prods);
     }
 
     @Override

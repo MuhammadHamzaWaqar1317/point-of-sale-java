@@ -16,8 +16,8 @@ import java.util.ArrayList;
 public class Store {
     public void storeProd(String name,int quantity,int price,double cost,ArrayList<Products> list){
         File file,file1;
-         String path="E:\\Abdullah uni 2022-2026\\5th Semester\\Advanced  Computer Programming\\ACP-Project\\point-of-sale-java\\src\\sale1.txt";
-         String path2="E:\\Abdullah uni 2022-2026\\5th Semester\\Advanced  Computer Programming\\ACP-Project\\point-of-sale-java\\src\\sales.txt";
+         String path="C:\\Abdullah\\university\\5\\ACP\\Project\\point-of-sale-java\\src\\sale1.txt";
+         String path2="C:\\Abdullah\\university\\5\\ACP\\Project\\point-of-sale-java\\src\\sales.txt";
         file=new File(path);
         file1=new File(path2);
              
@@ -57,7 +57,7 @@ public class Store {
          
         
         int count=0;
-        String path="E:\\Abdullah uni 2022-2026\\5th Semester\\Advanced  Computer Programming\\ACP-Project\\point-of-sale-java\\src\\sales.txt";
+        String path="C:\\Abdullah\\university\\5\\ACP\\Project\\point-of-sale-java\\src\\sales.txt";
         ArrayList<String> example=new ArrayList<>();
         try (BufferedReader reader = new BufferedReader(new FileReader(path))) {
             String line;
@@ -85,8 +85,8 @@ public class Store {
     }
     public void storeAfterRemove(ArrayList<Products>list){
          File file,file1;
-         String path="E:\\Abdullah uni 2022-2026\\5th Semester\\Advanced  Computer Programming\\ACP-Project\\point-of-sale-java\\src\\sale1.txt";
-         String path2="E:\\Abdullah uni 2022-2026\\5th Semester\\Advanced  Computer Programming\\ACP-Project\\point-of-sale-java\\src\\sales.txt";
+         String path="C:\\Abdullah\\university\\5\\ACP\\Project\\point-of-sale-java\\src\\sale1.txt";
+         String path2="C:\\Abdullah\\university\\5\\ACP\\Project\\point-of-sale-java\\src\\sales.txt";
         file=new File(path);
         file1=new File(path2);
              
