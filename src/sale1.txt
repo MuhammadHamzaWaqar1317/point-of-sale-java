@@ -1,0 +1,15 @@
+ name: oil
+ quantity: 12
+ price: 400
+ cost: 4800.0
+ ----------------
+ name: oil
+ quantity: 12
+ price: 400
+ cost: 4800.0
+ ----------------
+ name: oil
+ quantity: 12
+ price: 400
+ cost: 4800.0
+ ----------------

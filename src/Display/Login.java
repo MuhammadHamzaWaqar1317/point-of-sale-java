@@ -8,6 +8,7 @@ import java.awt.Color;
 import java.awt.Font;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.util.ArrayList;
 import javax.swing.*;
 
 /**
@@ -70,14 +71,55 @@ public class Login {
         String email = emailField.getText();
         String password = new String(passwordField.getPassword());
         boolean isAdmin = account.login(email,password);
+        boolean isCashier=account.loginCash(email, password);
+        InventoryImpl inv=new InventoryImpl();
+        CartImpl cart=new CartImpl(inv.getProds());
         if(isAdmin){
             frame.setVisible(false);
             Output.output("Login Successful");
             Product.productsFrame();
         }
+        else if(isCashier){
+            frame.setVisible(false);
+                                    int cho=0;
+                                    int chi=0;
+                        do{
+                        String message="1. add items\n"+
+                                "2. remove items\n"+
+                                "3. view cart\n"+
+                                "4. checkout\n"+
+                                "5. exit\n"+
+                                "6. back";
+                        cho=Integer.parseInt(Input.getInput(message));
+                        switch(cho){
+                            case 1:
+                                cart.addItems();
+                                break;
+                            case 2:
+                                cart.removeItems();
+                                break;
+                            case 3:
+                                cart.viewCart();
+                                break;
+                            case 4:
+                                cart.checkOut();
+                                break;
+                            case 5:
+                                System.exit(0);
+                            case 6:
+                                chi=1;
+                                frame.setVisible(true);
+                                break;
+                            default:
+                                Output.output("enter a valid choice!");
+                        }
+                        }while(cho!=6);
+                    }
         else{
-            Output.output("Invalid login credentials\n\t\tlogin failed");
+            Output.output("wrong credentials!");
         }
-    }
+        }
+        
     
 }
+

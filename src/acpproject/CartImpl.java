@@ -23,8 +23,12 @@ public class CartImpl implements Cart
     InventoryImpl pl;
     cashier cs;
     int quan=0;
+
     
-    CartImpl(ArrayList<Products> ps){
+    
+    
+    
+     public CartImpl(ArrayList<Products> ps){
         this.ps=ps;
     }
     
@@ -56,8 +60,8 @@ public class CartImpl implements Cart
                 calc=temp.getTotalCost();
                 break;
             }
-            ps.get(i).setQty(ps.get(i).getQty()-quan);          //error lines
-            double tot=ps.get(i).getTotalCost();                //error lines
+            ps.get(i).setQty(ps.get(i).getQty()-quan);          
+            double tot=ps.get(i).getTotalCost();                
             ps.get(i).setTotalCost(tot-calc);
         }
         
