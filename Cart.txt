@@ -1,5 +1,0 @@
-
-item name: java edition
-item price: 200
-item quantity: 1
-cost: 200.0

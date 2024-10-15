@@ -1,5 +1,0 @@
- name: java edition
- quantity: 100
- price: 200
- cost: 20000.0
- ----------------

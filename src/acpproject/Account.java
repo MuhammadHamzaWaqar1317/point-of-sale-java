@@ -10,5 +10,4 @@ package acpproject;
  */
 public interface Account {
     public boolean login(String name,String password);
-    public boolean loginCash(String name,String password);
 }
