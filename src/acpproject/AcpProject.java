@@ -13,7 +13,6 @@ import Display.*;
 public class AcpProject {
    
     public static void main(String[] args) {
-        String messages = "Hello world";
         Login.loginFrame();
     }
 }

@@ -3,3 +3,23 @@
  price: 50000
  cost: 500000.0
  ----------------
+ name: mac
+ quantity: 20
+ price: 200000
+ cost: 4000000.0
+ ----------------
+ name: samsung
+ quantity: 20
+ price: 80000
+ cost: 1600000.0
+ ----------------
+ name: chapal
+ quantity: 100
+ price: 500
+ cost: 50000.0
+ ----------------
+ name: desi ghee
+ quantity: 100
+ price: 550
+ cost: 55000.0
+ ----------------

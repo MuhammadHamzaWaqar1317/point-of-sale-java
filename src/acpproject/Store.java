@@ -19,18 +19,18 @@ public class Store {
         file1=new File(path2);
              
         if(file.delete() && file1.delete()){
-            System.out.println("deleted!");
+            Output.output("deleted!");
         }
         else{
-            System.out.println("error deleting file");
+            Output.output("error deleting file");
         }
         
         try{
               if(file.createNewFile()){
-                  System.out.println("file created!");    
+                  Output.output("file created!");    
               }   
            } catch (IOException ex){
-                System.out.println("create file failed!");
+                Output.output("create file failed!");
               }
             
         for (int i = 0; i < list.size(); i++)
@@ -44,9 +44,9 @@ public class Store {
             writer1.write(content);
             writer2.write(content2);
 
-            System.out.println("Content written to both files successfully.");
+            Output.output("Content written to both files successfully.");
         } catch (IOException e) {
-            System.err.println("Error writing to file: " + e.getMessage());
+            Output.errorMsg("Error writing to file: " + e.getMessage());
         }
         }       
     }
@@ -88,7 +88,7 @@ public class Store {
         file1=new File(path2);
              
         if(file.delete() && file1.delete()){
-            System.out.println("deleted!");
+            Output.output("deleted!");
         }
         else{
             Output.errorMsg("error deleting file");
@@ -96,7 +96,7 @@ public class Store {
         
         try{
               if(file.createNewFile()){
-                  System.out.println("file created!");    
+                  Output.output("file created!");    
               }   
            } catch (IOException ex){
                 Output.errorMsg("create file failed!");
@@ -112,9 +112,9 @@ public class Store {
             writer1.write(content);
             writer2.write(content2);
 
-            System.out.println("Content written to both files successfully.");
+            Output.output("Content written to both files successfully.");
         } catch (IOException e) {
-            System.err.println("Error writing to file: " + e.getMessage());
+            Output.errorMsg("Error writing to file: " + e.getMessage());
         }
         }       
     }

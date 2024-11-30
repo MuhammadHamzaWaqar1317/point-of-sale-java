@@ -93,13 +93,17 @@ public class InventoryImpl implements Inventory{
             Output.output(sb.toString());        
     }
    
-
     @Override
     public ArrayList<Products> searchProduct(String name) {
         for(int i=0;i<prods.size();i++){
-            Products product = new Products();
+            Products product = prods.get(i);
             if(product.getName().equals(name)){
+                System.out.println(name);
                 return prods;
+            }
+            else{
+                Output.output("Product not found: " + name);
+                break;
             }
         }
         return prods;
@@ -134,7 +138,6 @@ public class InventoryImpl implements Inventory{
                 prods.set(j+1,product);
                 }
         }
-//        store.storeAfterRemove(prods);
     }
     //try commit ;)
     @Override
@@ -168,7 +171,6 @@ public class InventoryImpl implements Inventory{
                 prods.set(j+1,product);
                 }
         }
-//        store.storeAfterRemove(prods);
     }
 
     @Override
@@ -184,26 +186,22 @@ public class InventoryImpl implements Inventory{
     }
 
     @Override
-    public void removeProd(Products prod)
-    {
-        boolean found=false;
-        for (int i = 0; i < prods.size(); i++)
-        {
-            if(prod.getName().equals(prods.get(i).getName())){
+    public void removeProd(Products prod) {
+        boolean found = false;
+        for (int i = 0; i < prods.size(); i++) {
+            if(prods.get(i).getName().equals(prod.getName())) {
                 prods.remove(i);
-                found=true;
+                found = true;
                 break;
             }
-            else{
-                continue;
-            }
         }
-        if(!found){
-            Output.output("product not found in inventory!");
+        if(!found) {
+            Output.output("Product not found in inventory!");
+        } else {
+            Output.output("Product removed successfully!");
+            store.storeAfterRemove(prods);
+            sortByName(true, false);
         }
-        Output.output("product removed success!");
-        store.storeAfterRemove(prods);
-        sortByName(true, false);
     }
     public ArrayList<Products> access(){
         return prods;
