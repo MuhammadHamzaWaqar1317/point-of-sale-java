@@ -4,8 +4,10 @@
  */
 package Display;
 import acpproject.*;
-import java.awt.*;
-import java.awt.event.*;
+import java.awt.Color;
+import java.awt.Font;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 import javax.swing.*;
 
 /**
@@ -17,7 +19,6 @@ public class Login {
     static JTextField emailField;
     static JPasswordField passwordField;
     static JButton login;
-    static JLabel Email,Password,messageLabel;
     
     public static void loginFrame(){
         frame = new JFrame("Login Frame");
@@ -25,25 +26,32 @@ public class Login {
         frame.setLocation(760, 240);
         frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         
-        GridLayout GL = new GridLayout(2,2,10,10);
-        BorderLayout BL = new BorderLayout(10,10);
-        JPanel background = new JPanel(BL);
+        JPanel panel = new JPanel();
+        panel.setLayout(null);
+        panel.setBackground(Color.decode("#7DBFFF"));
+        frame.add(panel);
         
-        JPanel panel = new JPanel(GL);
-        background.setBackground(Color.decode("#7DBFFF"));
-        panel.setSize(200, 200);
-        frame.add(background);
-        background.add(panel,BorderLayout.CENTER);
+        JLabel messageLabel = new JLabel("LOGIN");
+        messageLabel.setBounds(150, 30, 100, 40);
+        messageLabel.setFont(new Font("Arial",Font.BOLD,24));
+        panel.add(messageLabel);
         
-        messageLabel = new JLabel("LOGIN");
-        Email = new JLabel("Enter Email");
-        Password = new JLabel("Enter Password");
+        messageLabel = new JLabel("Enter Email");
+        messageLabel.setBounds(50, 80, 300, 40);
+        
+        panel.add(messageLabel);
         
         emailField = new JTextField();
+        emailField.setBounds(50, 130, 300, 40);
+        panel.add(emailField);
+        
+        messageLabel = new JLabel("Enter Password");
+        messageLabel.setBounds(50, 180, 300, 40);
+        panel.add(messageLabel);
         
         passwordField = new JPasswordField();
-        
-        background.add(messageLabel,BorderLayout.NORTH);
+        passwordField.setBounds(50, 230, 300, 40);
+        panel.add(passwordField);
         
         login = new JButton("Login");
         login.setBounds(150,300,100,40);
@@ -53,12 +61,7 @@ public class Login {
                 handleLogin();
             }
         });
-        
-        panel.add(Email);
-        panel.add(emailField);
-        panel.add(Password);
-        panel.add(passwordField);
-        background.add(login,BorderLayout.SOUTH);
+        panel.add(login);
         frame.setVisible(true);
     }
     
@@ -73,9 +76,8 @@ public class Login {
             Product.productsFrame();
         }
         else{
-            Output.output("wrong credentials!");
+            Output.output("Invalid login credentials\n\t\tlogin failed");
         }
     }
- }
-
-
+    
+}
