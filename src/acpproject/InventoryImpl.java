@@ -4,8 +4,6 @@
  */
 package acpproject;
 
-import java.io.*;
-import Display.Input;
 import Display.Output;
 import java.util.ArrayList;
 
@@ -13,24 +11,25 @@ import java.util.ArrayList;
  *
  * @author abdul
  */
-public class InventoryImpl implements Inventory{
+public class InventoryImpl implements Inventory {
     private ArrayList<Products> prods = new ArrayList<>();
-     Store store=new Store();
     private Products productActions;
+    private JDBC jdbc;
+
     public InventoryImpl() {
-       productActions=new Products();
-       store.addStart(prods);
-             
+        productActions = new Products();
+        jdbc = new JDBC();
+        prods = jdbc.loadAllProducts();
     }
+
     @Override
     public ArrayList<Products> getProds() {
         return prods;
     }
     
-    public boolean checkDuplicates(Products prod){
+    public boolean checkDuplicates(Products prod) {
         for (int i = 0; i < prods.size(); i++) {
-            
-            if(prods.get(i).getName().equals(prod.getName())){
+            if(prods.get(i).getName().equals(prod.getName())) {
                 return true;
             }
         }
@@ -39,20 +38,18 @@ public class InventoryImpl implements Inventory{
 
     @Override
     public void addProduct(Products prod) {
-        boolean duplicateProduct=false;
+        boolean duplicateProduct = false;
         do {            
-            duplicateProduct=checkDuplicates(prod);
+            duplicateProduct = checkDuplicates(prod);
             if (duplicateProduct) {
                 Output.errorMsg("Item Already Present in Inventory");
             }
         } while (duplicateProduct);
-        String name = prod.getName();
-        int price = prod.getPrice();
-        int quantity = prod.getQty();
-        Products newProduct=new Products(prod);
+        
+        Products newProduct = new Products(prod);
         prods.add(newProduct);
-        double cost=price*quantity;
-        store.storeProd(name,price,quantity,cost,prods);
+        jdbc.saveProduct(newProduct);
+        
         Output.output("Product Added Successfully");
         sortByName(true, false);
     }
@@ -60,19 +57,19 @@ public class InventoryImpl implements Inventory{
     @Override
     public void updateProduct(Products prod) {
         boolean found = false;
-        for(int i=0;i<prods.size();i++){
+        for(int i = 0; i < prods.size(); i++) {
             Products product = prods.get(i);
-            if(product.getName().equals(prod.getName())){
+            if(product.getName().equals(prod.getName())) {
                 product.setPrice(prod.getPrice());
                 product.setQty(prod.getQty());
                 product.setTotalCost(prod.getTotalCost());
-                store.storeProd(prod.getName(), prod.getPrice(), prod.getQty(), prod.getTotalCost(), prods);
+                jdbc.updateProduct(product);
                 Output.output("Product Updated Successfully");
                 found = true;
                 break;
             }
         }
-        if(!found){
+        if(!found) {
             Output.output("Product Not Found");
         }
         sortByName(true, false);
@@ -81,27 +78,26 @@ public class InventoryImpl implements Inventory{
     @Override
     public void viewInventory() {
         StringBuilder sb = new StringBuilder();
-            for(int i=0; i<prods.size();i++){
-                Products product = prods.get(i);
-                 sb.append("Name: ").append(product.getName())
-                .append(", Price: ").append(product.getPrice())
-                .append(", Quantity: ").append(product.getQty())
-                .append(", Total Price: ").append(product.getTotalCost())
-                .append("\n");
-            }
-            
-            Output.output(sb.toString());        
+        for(int i = 0; i < prods.size(); i++) {
+            Products product = prods.get(i);
+            sb.append("Name: ").append(product.getName())
+              .append(", Price: ").append(product.getPrice())
+              .append(", Quantity: ").append(product.getQty())
+              .append(", Total Price: ").append(product.getTotalCost())
+              .append("\n");
+        }
+        Output.output(sb.toString());
     }
-   
+
     @Override
     public ArrayList<Products> searchProduct(String name) {
-        for(int i=0;i<prods.size();i++){
+        for(int i = 0; i < prods.size(); i++) {
             Products product = prods.get(i);
-            if(product.getName().equals(name)){
+            if(product.getName().equals(name)) {
                 System.out.println(name);
                 return prods;
             }
-            else{
+            else {
                 Output.output("Product not found: " + name);
                 break;
             }
@@ -111,78 +107,64 @@ public class InventoryImpl implements Inventory{
 
     @Override
     public void sortByName(boolean asce, boolean desce) {
-        if(asce ){
-           for(int i=1;i<prods.size();i++){
-
-                Products product=prods.get(i);
-                int j=i-1;
-
-                while(j>=0 && prods.get(j).getName().compareTo(product.getName())>0){
-
-                    prods.set(j+1,prods.get(j));
-                    j--;
-                        }
-                prods.set(j+1,product);
-                }
-        }
-        
-        else if(desce ){
-            for(int i=1;i<prods.size();i++){
+        if(asce) {
+            for(int i = 1; i < prods.size(); i++) {
                 Products product = prods.get(i);
-                int j=i-1;
-
-                while(j>=0 && prods.get(j).getName().compareTo(product.getName())<0){
-                            prods.set(j+1, prods.get(j));
+                int j = i-1;
+                while(j >= 0 && prods.get(j).getName().compareTo(product.getName()) > 0) {
+                    prods.set(j+1, prods.get(j));
                     j--;
-                        }
-                prods.set(j+1,product);
                 }
+                prods.set(j+1, product);
+            }
+        }
+        else if(desce) {
+            for(int i = 1; i < prods.size(); i++) {
+                Products product = prods.get(i);
+                int j = i-1;
+                while(j >= 0 && prods.get(j).getName().compareTo(product.getName()) < 0) {
+                    prods.set(j+1, prods.get(j));
+                    j--;
+                }
+                prods.set(j+1, product);
+            }
         }
     }
-    //try commit ;)
+
     @Override
-    public void sortByPrice(boolean asce,boolean desc) {
-       if(asce){
-        for(int i=1;i<prods.size();i++){
-
-                Products product=prods.get(i);
-                int j=i-1;
-
-                 while (j >= 0 && prods.get(j).getPrice() > 0 && prods.get(j).getPrice() > product.getPrice()){
-
-                    prods.set(j+1,prods.get(j));
+    public void sortByPrice(boolean asce, boolean desc) {
+        if(asce) {
+            for(int i = 1; i < prods.size(); i++) {
+                Products product = prods.get(i);
+                int j = i-1;
+                while (j >= 0 && prods.get(j).getPrice() > 0 && prods.get(j).getPrice() > product.getPrice()) {
+                    prods.set(j+1, prods.get(j));
                     j--;
-                        }
-                prods.set(j+1,product);
                 }
+                prods.set(j+1, product);
+            }
         }
-    
-       else if(desc){
-            for(int i=1;i<prods.size();i++){
-
-                Products product=prods.get(i);
-                int j=i-1;
-
-                 while (j >= 0 && prods.get(j).getPrice() > 0 && prods.get(j).getPrice() < product.getPrice()){
-
-                    prods.set(j+1,prods.get(j));
+        else if(desc) {
+            for(int i = 1; i < prods.size(); i++) {
+                Products product = prods.get(i);
+                int j = i-1;
+                while (j >= 0 && prods.get(j).getPrice() > 0 && prods.get(j).getPrice() < product.getPrice()) {
+                    prods.set(j+1, prods.get(j));
                     j--;
-                        }
-                prods.set(j+1,product);
                 }
+                prods.set(j+1, product);
+            }
         }
     }
 
     @Override
     public void productPrice() {
         int totalPrice = 0;
-        for(int i=0;i<prods.size();i++){
+        for(int i = 0; i < prods.size(); i++) {
             Products product = prods.get(i);
             totalPrice += product.getPrice() * product.getQty();
-            
         }
         Output.output("Total Price: " + totalPrice);
-        
     }
 
     @Override
@@ -190,6 +172,7 @@ public class InventoryImpl implements Inventory{
         boolean found = false;
         for (int i = 0; i < prods.size(); i++) {
             if(prods.get(i).getName().equals(prod.getName())) {
+                jdbc.deleteProduct(prod.getName());
                 prods.remove(i);
                 found = true;
                 break;
@@ -199,12 +182,11 @@ public class InventoryImpl implements Inventory{
             Output.output("Product not found in inventory!");
         } else {
             Output.output("Product removed successfully!");
-            store.storeAfterRemove(prods);
             sortByName(true, false);
         }
     }
-    public ArrayList<Products> access(){
+
+    public ArrayList<Products> access() {
         return prods;
     }
-    
 }
