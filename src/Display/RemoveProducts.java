@@ -97,13 +97,15 @@ public class RemoveProducts {
     }
     public static void searchAction(){
        String name = productsName.getText();
-        ArrayList<Products> prods = inv.searchProduct(name);
-        for(int i=0;i<prods.size();i++){
-            Products prod = prods.get(i);
-            productsName.setText(prod.getName());
-            productsPrice.setText(String.valueOf(prod.getPrice()));
-            productsQuantity.setText(String.valueOf(prod.getQty()));
+        int index = inv.searchProduct(name);
+        if (index == -1){
+            Output.errorMsg("Prodcut not found");
+            return;
         }
+        Products prod= InventoryImpl.prods.get(index);
+        productsName.setText(prod.getName());
+        productsPrice.setText(String.valueOf(prod.getPrice()));
+        productsQuantity.setText(String.valueOf(prod.getQty()));
         productsName.disable();
         productsPrice.disable();
         productsQuantity.disable();

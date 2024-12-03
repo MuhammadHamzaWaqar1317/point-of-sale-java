@@ -5,6 +5,7 @@
 package acpproject;
 
 import Display.Output;
+import Display.Product;
 import java.util.ArrayList;
 
 /**
@@ -12,7 +13,7 @@ import java.util.ArrayList;
  * @author abdul
  */
 public class InventoryImpl implements Inventory {
-    private ArrayList<Products> prods = new ArrayList<>();
+    public static ArrayList<Products> prods;
     private Products productActions;
     private JDBC jdbc;
 
@@ -90,19 +91,17 @@ public class InventoryImpl implements Inventory {
     }
 
     @Override
-    public ArrayList<Products> searchProduct(String name) {
+    public int searchProduct(String name) {
         for(int i = 0; i < prods.size(); i++) {
             Products product = prods.get(i);
+            System.out.println(product.getName() + "in search func");
             if(product.getName().equals(name)) {
                 System.out.println(name);
-                return prods;
+                return i;
             }
-            else {
-                Output.output("Product not found: " + name);
-                break;
-            }
+            
         }
-        return prods;
+        return -1;
     }
 
     @Override
@@ -169,6 +168,7 @@ public class InventoryImpl implements Inventory {
 
     @Override
     public void removeProd(Products prod) {
+        
         boolean found = false;
         for (int i = 0; i < prods.size(); i++) {
             if(prods.get(i).getName().equals(prod.getName())) {

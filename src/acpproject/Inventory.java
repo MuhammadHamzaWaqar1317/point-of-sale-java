@@ -20,7 +20,7 @@ public interface Inventory {
     public void productPrice();
     public void viewInventory();
     public void removeProd(Products prod);
-    public ArrayList<Products> searchProduct(String name);
+    public int searchProduct(String name);
     public void sortByName(boolean asce, boolean desce);
     public void sortByPrice(boolean asce, boolean desce);
 }

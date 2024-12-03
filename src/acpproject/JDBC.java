@@ -75,6 +75,7 @@ public class JDBC {
                 product.setPrice(rs.getInt("price"));
                 product.setQty(rs.getInt("quantity"));
                 product.setTotalCost(rs.getDouble("total_cost"));
+                System.out.println(rs.getString("name"));
                 products.add(product);
             }
         } catch (SQLException e) {
