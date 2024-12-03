@@ -100,7 +100,6 @@ public class UpdateProducts {
     public static void searchAction(){
        String name = productsName.getText();
        int index = inv.searchProduct(name);
-        System.out.println(index);
         if (index == -1){
             Output.errorMsg("Prodcut not found");
             return;

@@ -92,11 +92,10 @@ public class InventoryImpl implements Inventory {
 
     @Override
     public int searchProduct(String name) {
+        
         for(int i = 0; i < prods.size(); i++) {
             Products product = prods.get(i);
-            System.out.println(product.getName() + "in search func");
             if(product.getName().equals(name)) {
-                System.out.println(name);
                 return i;
             }
             
@@ -132,28 +131,28 @@ public class InventoryImpl implements Inventory {
 
     @Override
     public void sortByPrice(boolean asce, boolean desc) {
-        if(asce) {
-            for(int i = 1; i < prods.size(); i++) {
-                Products product = prods.get(i);
-                int j = i-1;
-                while (j >= 0 && prods.get(j).getPrice() > 0 && prods.get(j).getPrice() > product.getPrice()) {
-                    prods.set(j+1, prods.get(j));
-                    j--;
+            if(asce) {
+                for(int i = 1; i < prods.size(); i++) {
+                    Products product = prods.get(i);
+                    int j = i-1;
+                    while (j >= 0 && prods.get(j).getPrice() > 0 && prods.get(j).getPrice() > product.getPrice()) {
+                        prods.set(j+1, prods.get(j));
+                        j--;
+                    }
+                    prods.set(j+1, product);
                 }
-                prods.set(j+1, product);
             }
-        }
-        else if(desc) {
-            for(int i = 1; i < prods.size(); i++) {
-                Products product = prods.get(i);
-                int j = i-1;
-                while (j >= 0 && prods.get(j).getPrice() > 0 && prods.get(j).getPrice() < product.getPrice()) {
-                    prods.set(j+1, prods.get(j));
-                    j--;
+            else if(desc) {
+                for(int i = 1; i < prods.size(); i++) {
+                    Products product = prods.get(i);
+                    int j = i-1;
+                    while (j >= 0 && prods.get(j).getPrice() > 0 && prods.get(j).getPrice() < product.getPrice()) {
+                        prods.set(j+1, prods.get(j));
+                        j--;
+                    }
+                    prods.set(j+1, product);
                 }
-                prods.set(j+1, product);
             }
-        }
     }
 
     @Override
@@ -168,7 +167,6 @@ public class InventoryImpl implements Inventory {
 
     @Override
     public void removeProd(Products prod) {
-        
         boolean found = false;
         for (int i = 0; i < prods.size(); i++) {
             if(prods.get(i).getName().equals(prod.getName())) {

@@ -22,13 +22,10 @@ public class AcpProject {
             connection.prepareStatement(createTable);
             statement.executeUpdate(createTable);
             
-            System.out.println("Connected to the database.");
             Login.loginFrame();
         } catch (Exception e) {
-            System.out.println("Failed to connect to the database.");
             e.printStackTrace();
         }
        
-        ////after Abdullah31012005      new commit!
     }
 }
