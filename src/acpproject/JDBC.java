@@ -4,17 +4,20 @@
  */
 package acpproject;
 
+import java.awt.*;
 import java.sql.*;
-import java.util.ArrayList;
+import java.util.*;
 
 public class JDBC {
     private static final String URL = "jdbc:mysql://localhost:3306/inventory_db";
     private static final String USER = "root";
     private static final String PASSWORD = "root";
+    private Connection connection;
     
-    private static Connection getConnection() throws SQLException {
+    public static Connection getConnection() throws SQLException {
         try {
             Class.forName("com.mysql.cj.jdbc.Driver");
+            
             return DriverManager.getConnection(URL, USER, PASSWORD);
         } catch (ClassNotFoundException e) {
             throw new SQLException("Database driver not found", e);
